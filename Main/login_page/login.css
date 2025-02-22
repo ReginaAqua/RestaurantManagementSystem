@@ -5,10 +5,9 @@
 }
 
 .header {
-    min-height: 100vh;
+    min-height: 70vh;
     width: 100%;
-    background: linear-gradient(rgba(4,9,30,0.7), rgba(4,9,30,0.7)), 
-                url("foto/pizza_foto1.jpg");
+    background: url("foto/marble_black.jpg");
     background-position: center;
     background-size: cover;
     position: relative;
@@ -27,12 +26,12 @@ nav img{
 
 .nav-links{
     flex: 1;
-    text-align: right;
+    text-align:right;
 }
 .nav-links ul li{
     list-style: none;
     display: inline-block;
-    padding: 8px 12px;
+    padding: 6px 12px;
     position: relative;
 }
 .nav-links ul li a{
@@ -58,7 +57,7 @@ nav img{
     width: 90%;
     color: hsl(0, 100%, 50%);
     position: absolute;
-    top: 50%;
+    top: 20%;
     left: 50%;
     transform: translate(-50%,-50%);
     text-align: center;
@@ -125,7 +124,7 @@ nav .fa{
 .alitheies{
     padding-top: 100px;
     text-align: center;
-    background:black;
+    background: url(foto/woods.jpg);
     color: blue;
 
 }
@@ -152,4 +151,13 @@ p{
     margin-bottom: 5%;
     padding: 20px 12px;
     box-sizing: border-box;
+}
+.divider{
+    background: gray;
+}
+.pizzaimg{
+    background: url(foto/pizzanum1.jpg);
+}
+.pizza{
+    size:100px;
 }
