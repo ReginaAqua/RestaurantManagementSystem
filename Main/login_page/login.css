@@ -18,10 +18,10 @@
 
 nav{
     display: flex;
-    
     justify-content: space-between;
     align-items: center;
     background: black;
+    height: 80px;
 }
 
 nav img{
@@ -30,7 +30,7 @@ nav img{
 
 .nav-links{
     flex: 1;
-    text-align:right;
+    text-align:left;
 }
 .nav-links ul li{
     list-style: none;
@@ -61,11 +61,11 @@ nav img{
 .text-box{
     width: 90%;
     color: hsl(0, 100%, 50%);
-    position: absolute;
+    position:fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
-    text-align: center;
+    text-align: right;
 }
 
 .text-box h1{
@@ -160,9 +160,8 @@ p{
 .divider{
     background: gray;
 }
-.pizzaimg{
-    background: url(foto/pizzanum1.jpg);
+.pizza img{
+    width: 500px;  /* Set width */
+    height: 650px!important; /* Keep aspect ratio */
 }
-.pizza{
-    size:100px;
-}
+
