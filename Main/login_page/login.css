@@ -1,7 +1,7 @@
 *{
     margin: 0;
     padding: 0;
-    font-family: arial;
+    font-family:'Palatino Bold';
 }
 
 .header {
@@ -40,7 +40,7 @@ nav img{
     list-style-type: none;
 }
 .nav-links ul li a{
-    color: aqua;
+    color: red;
     text-decoration: none;
     font-size: 13px;  
 }
@@ -48,25 +48,27 @@ nav img{
     content: '';
     width: 0%;
     height: 2px;
-    background: darkgoldenrod;
+    background: #ffb700;
     display: block;
     margin: auto;
-    transition: 0.5s;
+    transition: 0.3s;
 }
 
 .nav-links ul li:hover::after{
     width: 100%;
 }
 
-.text-box{
+.text-box {
     width: 90%;
+    text-decoration: none;
     color: hsl(0, 100%, 50%);
-    position:fixed;
+    position: absolute; 
     top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    text-align: right;
+    right: 5%; 
+    transform: translate(0, -50%); 
+    text-align: right; 
 }
+
 
 .text-box h1{
     font-size: 62px;
@@ -77,10 +79,11 @@ nav img{
     color: aliceblue;
 }
 .hero-btn{
+    border-radius: 25px;
     display: inline-block;
     text-decoration: none;
-    color: aqua;
-    border: 1px solid #fff;
+    color: #ffb700;
+    border: 1px solid red;
     padding: 12px 34px;
     font-size: 13px;
     background: transparent;
@@ -88,49 +91,17 @@ nav img{
     cursor: pointer;
 }
 .hero-btn:hover{
-    border: 1px solid #f44336;
-    background: plum;
-    transition: 1s;
+    border: 1px solid red;
+    background: red;
+    transition: 0.8s;
 }
-nav .fa{
-    display:none; 
-}
-@media(max-width:700px){
-    .text-box h1{
-        font-size: 20px;
-    }
-    .nav-links ul li{
-        display: block;
-    }
-    .nav-links{
-        position: absolute;
-        background: #f44336;
-        height: 100vh;
-        width: 200px;
-        top:0;
-        right: -200px;
-        text-align: left;
-        z-index: 2;
-        transition: 1s;
-    }
-    nav .fa{
-        display: block;
-        color: #f44336;
-        margin: 10px;
-        font-size: 22px;
-        cursor: pointer;
 
-    }
-    .nav-links ul{
-        padding: 30px;
-    }
 
-}
 .alitheies{
     padding-top: 100px;
     text-align: center;
-    background: url(foto/woods.jpg);
-    color: blue;
+    background: rgb(39, 19, 19);
+    color: red;
 
 }
 h1{
@@ -138,7 +109,7 @@ h1{
     font-weight: 600;
 }
 p{
-    color: wheat;
+    color: white;
     font-size: 14px;
     font-weight: 300;
     line-height: 22px;
@@ -149,7 +120,7 @@ p{
     display: flex;
     justify-content: space-between;
 }
-.course-call{
+.a1-call{
     flex-basis: 31%;
     background: palegreen;
     border-radius: 10px;
@@ -165,3 +136,27 @@ p{
     height: 650px!important; /* Keep aspect ratio */
 }
 
+.log-btn{
+    border-radius: 25px;
+    display: inline-block;
+    color:#ffb700;
+    border: 1px solid red;
+    padding: 12px 34px;
+    font-size: 13px;
+    background: transparent;
+    position: relative;
+    cursor: pointer;
+}
+.log-btn:hover{
+    border: 1px solid red;
+    background: red;
+    transition: 1s;
+}
+
+.butlinks ul li{
+    list-style: none;
+    display: inline-block;
+    padding: 6px 12px;
+    position: relative;
+    list-style-type: none;
+}
