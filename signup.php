@@ -16,14 +16,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
     // Database connection
-    $conn = new mysqli("localhost", "root", "", "users_db");
+    $conn = new mysqli("localhost", "root", "", "user");
 
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
 
     // Insert user into database
-    $stmt = $conn->prepare("INSERT INTO users (username, password, name, surname, birthdate, email, phone) VALUES (?, ?, ?, ?, ?, ?, ?)");
+    $stmt = $conn->prepare("INSERT INTO users (username, password, name, surname, date, email, telephone) VALUES (?, ?, ?, ?, ?, ?, ?)");
     $stmt->bind_param("sssssss", $username, $hashed_password, $name, $surname, $birthdate, $email, $phone);
 
     if ($stmt->execute()) {
