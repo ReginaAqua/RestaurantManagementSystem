@@ -1,0 +1,162 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family:'Palatino Bold';
+}
+
+.header {
+    min-height: 100vh;
+    width: 100%;
+    background: url("foto/marble_black.jpg");
+    background-position: center;
+    background-size: cover;
+    position: relative;
+}
+.navlinks{
+    min-height: 100vh;
+}
+
+nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: black;
+    height: 80px;
+}
+
+nav img{
+    width: 100px;
+}
+
+.nav-links{
+    flex: 1;
+    text-align:left;
+}
+.nav-links ul li{
+    list-style: none;
+    display: inline-block;
+    padding: 6px 12px;
+    position: relative;
+    list-style-type: none;
+}
+.nav-links ul li a{
+    color: red;
+    text-decoration: none;
+    font-size: 13px;  
+}
+.nav-links ul li::after{
+    content: '';
+    width: 0%;
+    height: 2px;
+    background: #ffb700;
+    display: block;
+    margin: auto;
+    transition: 0.3s;
+}
+
+.nav-links ul li:hover::after{
+    width: 100%;
+}
+
+.text-box {
+    width: 90%;
+    text-decoration: none;
+    color: hsl(0, 100%, 50%);
+    position: absolute; 
+    top: 50%;
+    right: 5%; 
+    transform: translate(0, -50%); 
+    text-align: right; 
+}
+
+
+.text-box h1{
+    font-size: 62px;
+}
+.text-box p{
+    margin: 10px 0 40px;
+    font-size: 14px;
+    color: aliceblue;
+}
+.hero-btn{
+    border-radius: 25px;
+    display: inline-block;
+    text-decoration: none;
+    color: #ffb700;
+    border: 1px solid red;
+    padding: 12px 34px;
+    font-size: 13px;
+    background: transparent;
+    position: relative;
+    cursor: pointer;
+}
+.hero-btn:hover{
+    border: 1px solid red;
+    background: red;
+    transition: 0.8s;
+}
+
+
+.alitheies{
+    padding-top: 100px;
+    text-align: center;
+    background: rgb(39, 19, 19);
+    color: red;
+
+}
+h1{
+    font-size: 36px;
+    font-weight: 600;
+}
+p{
+    color: white;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 22px;
+    padding: 10px;
+}
+.row{
+    margin-top: 5%;
+    display: flex;
+    justify-content: space-between;
+}
+.a1-call{
+    flex-basis: 31%;
+    background: palegreen;
+    border-radius: 10px;
+    margin-bottom: 5%;
+    padding: 20px 12px;
+    box-sizing: border-box;
+}
+.divider{
+    background: gray;
+}
+.pizza img{
+    width: 500px;  /* Set width */
+    height: 650px!important; /* Keep aspect ratio */
+}
+
+.log-btn{
+    border-radius: 25px;
+    display: inline-block;
+    color:#ffb700;
+    border: 1px solid red;
+    padding: 12px 34px;
+    font-size: 13px;
+    background: transparent;
+    position: relative;
+    cursor: pointer;
+}
+.log-btn:hover{
+    border: 1px solid red;
+    background: red;
+    transition: 1s;
+}
+
+.butlinks ul li{
+    list-style: none;
+    display: inline-block;
+    padding: 6px 12px;
+    position: relative;
+    list-style-type: none;
+}
