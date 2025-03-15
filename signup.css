@@ -1,26 +1,29 @@
-/* Apply styles to the whole page */
 body {
-    font-family: 'Palatino Bold';
-    background-color: #121212; 
-    color: red; 
+    font-family: 'Palatino Bold', cursive;
+    background-image: url(foto/marble_black.jpg); 
+    background-position: center;
+    background-size: cover;
+    height: 95vh;
     display: flex;
-    justify-content: center;
     align-items: center;
-    height: 100vh;
+    justify-content: center;
+    color: red;
 }
 
 /* Container for the form */
 .signup-container {
-    background: #1e1e1e;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(255, 0, 0, 0.5); 
     width: 320px;
+    background: radial-gradient(rgba(37, 37, 37, 0.6));  /* Dark transparent background */
+    box-shadow: 5px 10px 20px rgba(0, 0, 0, 0.6);
+    border-radius: 20px;
+    padding: 20px;
+    text-align: center;
 }
 
 /* Center the heading */
 h2 {
-    text-align: center;
+    font-size: 30px;
+    color: #dc0303;
     margin-bottom: 20px;
 }
 
@@ -33,32 +36,49 @@ form {
 /* Labels are aligned to the left */
 label {
     margin-top: 10px;
+    font-size: 16px;
+    color: rgb(255, 111, 0);
 }
 
 /* Input fields styling */
 input {
-    width: 100%; 
+    width: 80%;
     padding: 8px;
     margin-top: 5px;
-    border: 1px solid red;
+    border: 3px solid rgb(255, 111, 0);;
     border-radius: 5px;
-    background-color: #252525; 
-    color: red; 
-    font-family: 'Palatino Bold';
+    background-color: #cfd0cf;
+    color: #000;
+    font-family: 'Palatino Bold', cursive;
+    letter-spacing: 1px;
+    transition: 0.3s ease;
+    font-size: 16px;
+}
+
+input:hover {
+    border-bottom: solid #fff;
+}
+
+input::placeholder {
+    color: #fff;
 }
 
 /* Styling for the submit button */
 button {
-    margin-top: 15px;
-    padding: 10px;
-    background-color: red;
-    color: black; 
-    border: none;
+    font-size: 18px;
+    padding: 8px 16px;
+    margin-top: 20px;
     border-radius: 5px;
+    background-color: #656161de;
+    color: rgb(255, 111, 0);
+    border: none;
     cursor: pointer;
     font-weight: bold;
+    transition: 0.3s ease;
 }
 
 button:hover {
-    background-color: darkred;
+    background-color: #858b86;
 }
+
+
