@@ -33,6 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="Re-enablePassword.css">
 </head>
 <body>
+
     <div class="container">
         <img src="foto/eyespy.png" alt="Image description" class="image">
         <p class="description">Don't mind me, just investigating your password huehuehue.</p>
