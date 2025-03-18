@@ -1,5 +1,5 @@
 body {
-    font-family: 'Palatino Bold', cursive;
+    font-family: 'Palatino Bold';
     background-image: url(foto/marble_black.jpg); 
     background-position: center;
     background-size: cover;
@@ -49,7 +49,7 @@ input {
     border-radius: 5px;
     background-color: #cfd0cf;
     color: #000;
-    font-family: 'Palatino Bold', cursive;
+    font-family: 'Palatino Bold';
     letter-spacing: 1px;
     transition: 0.3s ease;
     font-size: 16px;
