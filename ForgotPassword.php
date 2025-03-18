@@ -57,24 +57,34 @@ try {
     $mail->isSMTP();  // Setting mailer to use SMTP
     $mail->Host = 'smtp.gmail.com';  // Setting Gmail's SMTP server
     $mail->SMTPAuth = true;  // Enabling SMTP authentication
-    $mail->Username = 'anastasiosdrog@gmail.com';  // Your Gmail address
+    $mail->Username = 'anastasiosdrog@Gmail.com';  // Your Gmail address
     $mail->Password = 'zgau morr ihfz qdmt';  // Your app-specific password (if 2FA is enabled)
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;  // Enable TLS encryption
     $mail->Port = 587;  // TCP port to connect to (587 for Gmail)
 
     //Recipients
-    $mail->setFrom('anastasiosdrog@gmail.com', 'sender');  // Sender's email
+    $mail->setFrom('anastasiosdrog@hotmail.com', 'sender');  // Sender's email
     $mail->addAddress($fetched_email, $full_name);  // Recipient's email
 
-    // Content
-    $random_number = rand(100000, 999999); //creating a 6 digit code for authentication which will be sent to the user's email.
+    
+    $OTP = rand(100000, 999999); //creating a 6 digit code for authentication which will be sent to the user's email.
+    $OTP_final = strval($OTP);
+    $set_OTP = $con->prepare("UPDATE users SET otp_code = ? WHERE email = '$fetched_email'");
+    $set_OTP->bind_param("s", $OTP_final);
     $mail->isHTML(true);  // Setting email format to HTML
     $mail->Subject = 'Request to re-enable your password.';
-    $mail->Body    = 'Please enter the 6 digit code provided to you, in the link sent, to re-enable your new password.<br>Code: '. $random_number;
+    $mail->Body = 'Please enter the 6 digit code provided to you, in the link sent, to re-enable your new password.<br>Code: '. $OTP;
 
     // Send the email
-    if ( (mysqli_num_rows($search)>=1) AND ($email OR $phone_num OR $username) )
-    {$mail->send();
+    if (mysqli_num_rows($search) >= 1 && ($email || $phone_num || $username)) {
+
+        if ($set_OTP->execute()) {
+            echo "OTP was send to the email: ". $email;
+        } else {
+            echo "Error updating record: " . $conn->error;
+        }
+
+        $mail->send();
     echo 'A 6 digit code has been sent to your email for re-enabling your password.';
     }
 } catch (Exception $e) {
