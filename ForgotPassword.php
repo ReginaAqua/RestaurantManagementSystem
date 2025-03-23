@@ -6,10 +6,6 @@ require 'vendor/autoload.php'; // Adjust this if you're not using Composer
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-//starting session
-session_start();
-//connection with the form and sql server
-$con = mysqli_connect("localhost","root","","user");
 //initialise variables that will be the user's input and clear the contact variable from html if it was previously used.
 $email = null;
 $phone_num = null;
@@ -32,25 +28,37 @@ else {
    // echo "This is a username " . $phone_num;
 }
 
-//Command that selects all columns from users that have the same data as the input given. 
-$sql = " SELECT * FROM users where email = '$email' OR telephone = '$phone_num' OR username = '$username'";
-//Connecting into the query and stores the result.
-$search = mysqli_query($con,$sql);
 
+//Reading the json file data to find the user that matches the input given. 
+$json_file = 'Data/users.json';
+$json_data = file_get_contents($json_file);
+$dec_data = json_decode($json_data, true);
 
-//Using fetching function to grab data associated with the input given for the designated user.
-$user_data = mysqli_fetch_assoc($search);
+//in case the person didnt input an email, we will grab it using the username or phone number from json.
+if($email == null)
+{
+    foreach ($dec_data as $user)
+    {
+ 
+      if($user['username'] === $username || $user['phone'] === $phone_num)
+      {
+        $email = $user['email'];
+        break;
+      }
+      else{
+        $response = [
+            "status" => "error",
+            "message" => "User does not exist with that input!"
+        ];
+        echo json_encode($response);
+        exit;
+      }
 
-//fetching name based on the input given to adress the recipient when sending the email.
-$name = $user_data['name']; 
-$surname = $user_data['surname'];
-$full_name = $name . ' ' . $surname;  
+    }
 
-//fetched email based on the input given which is then added to addAdress() function to send the email to the right recipient.
-$fetched_email = $user_data['email'];
+}
 
 $mail = new PHPMailer(true);  // Passing `true` enables exceptions
-
 
 try {
     //Server settings
@@ -64,29 +72,31 @@ try {
 
     //Recipients
     $mail->setFrom('anastasiosdrog@hotmail.com', 'sender');  // Sender's email
-    $mail->addAddress($fetched_email, $full_name);  // Recipient's email
+    $mail->addAddress($email);  // Recipient's email
 
-    
     $OTP = rand(100000, 999999); //creating a 6 digit code for authentication which will be sent to the user's email.
-    $OTP_final = strval($OTP);
-    $set_OTP = $con->prepare("UPDATE users SET otp_code = ? WHERE email = '$fetched_email'");
-    $set_OTP->bind_param("s", $OTP_final);
+    $OTP_str = strval($OTP);
+   foreach ($dec_data as $user)
+    {
+        if($user['email'] === $email)
+        {
+            $user['OTP'] = $OTP_str;
+            break;
+        }
+        
+    }
     $mail->isHTML(true);  // Setting email format to HTML
     $mail->Subject = 'Request to re-enable your password.';
     $mail->Body = 'Please enter the 6 digit code provided to you, in the link sent, to re-enable your new password.<br>Code: '. $OTP;
 
     // Send the email
-    if (mysqli_num_rows($search) >= 1 && ($email || $phone_num || $username)) {
-
-        if ($set_OTP->execute()) {
-            echo "OTP was send to the email: ". $email;
-        } else {
-            echo "Error updating record: " . $conn->error;
-        }
-
-        $mail->send();
+    $mail->send();
     echo 'A 6 digit code has been sent to your email for re-enabling your password.';
-    }
+    //updating the json file data
+    $new_json_data = json_encode($dec_data, JSON_PRETTY_PRINT);
+    file_put_contents($json_file, $new_json_data);
+    
+
 } catch (Exception $e) {
     echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
 }
