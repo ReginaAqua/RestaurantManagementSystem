@@ -1,85 +1,42 @@
 <?php
 
-/*
+// Define the path to the JSON file
+$json_file = 'Data/users.json';
 
-// session start. Beginning of the php
-session_start();
+// Read the contents of the JSON file
+$json_data = file_get_contents($json_file);
 
-// connection between Form and MySql server
-$con = mysqli_connect("localhost","root","","user");
+// Decode the JSON data into a PHP array
+$users = json_decode($json_data, true);
 
-//username and password is received from login page
-$usertrim = trim($_POST['username']);
-//eliminated space and special characters here
-$userstrip = stripcslashes($usertrim);
-$finaluser = htmlspecialchars($userstrip);
-
-//similar for password space and special character elimination 
-
-$passtrim = trim($_POST['password']);
-//eliminated space and special characters here
-$passstrip = stripcslashes($passtrim);
-$finalpass = htmlspecialchars($passstrip);
-
-//comparison between user input with database values
-$sql = "SELECT * FROM user_tbl where username = '$finaluser' AND password = '$finalpass'";
-//SQL result executed
-$result = mysqli_query($con,$sql);
-
-//if number of rows is greater than 0 then there is username and password match
-//match is found else is not found
-
-if(mysqli_num_rows($result)>=1)
-{
-    //username is stored to session and forwarded to next page
-    $_SESSION["myuser"]= $finaluser;
-    header("Location:newpage.html");
-}
-else {
-    //error is shown in the same page or next page
-    $_SESSION["error"]= "You are not a valid user";
-    header("Location:error.html");
-    
-}
-*/
-
-session_start();
-
-$con = mysqli_connect("localhost","root","","user");
-
-$manager = "manager"; 
-
-//$username = $_POST['username'];
-
+// Initialize variables (from POST request)
 $usertrim = trim($_POST['username']);
 $userstrip = stripcslashes($usertrim);
 $finaluser = htmlspecialchars($userstrip);
-
-//$password = $_POST['password'];
 
 $passtrim = trim($_POST['password']);
 $passstrip = stripcslashes($passtrim);
 $finalpass = htmlspecialchars($passstrip);
 
+// Search for the user in the JSON data
+$found_user = null;
 
-$sql = " SELECT * FROM users where username = '$finaluser' AND password = '$finalpass'";
-
-$final = mysqli_query($con,$sql);
-    
-$user_data = mysqli_fetch_assoc($final);
-
-$role = $user_data['role'];
-
-if(mysqli_num_rows($final)>=1 AND $role == $manager )
-{
-    $_SESSION["myuser"]= $finaluser;
-    header("Location:manager.html");
-    //echo "The role is: ", $role;
-}
-else
-{
-    header("Location:staff.html");
-   // echo "The role is: ", $role;
+foreach ($users as $user) {
+    if ($user['username'] == $finaluser && password_verify($finalpass, $user['password'])) {
+        $found_user = $user;
+        break;
+    }
 }
 
+// Check if user was found and if the role is 'manager'
+if ($found_user && $found_user['role'] == 'manager') {
+    $_SESSION["myuser"] = $finaluser;
+    header("Location: manager.html");
+} elseif ($found_user) {
+    // If the user exists but is not a manager, redirect to staff page
+    header("Location: staff.html");
+} else {
+    // If no matching user is found
+     echo "Invalid username or password.";
+}
 ?>
