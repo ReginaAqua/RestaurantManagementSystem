@@ -1,0 +1,157 @@
+/* Global Reset */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: Arial, sans-serif;
+  background: #E0F7FA; /* soft baby blue */
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+/* Sidebar Navigation */
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 200px;
+  background: #0288D1;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  padding-top: 20px;
+  transition: width 0.3s ease;
+  overflow: hidden;
+}
+.sidebar.collapsed {
+  width: 60px;
+}
+.sidebar a {
+  color: #fff;
+  text-decoration: none;
+  padding: 15px 20px;
+  transition: background 0.3s;
+  white-space: nowrap;
+  display: block;
+}
+/* Hide link text when sidebar is collapsed */
+.sidebar.collapsed a span {
+  display: none;
+}
+.sidebar a:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+/* Main Content Area */
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-left: 200px; /* space for sidebar */
+  transition: margin-left 0.3s ease;
+}
+.main.collapsed {
+  margin-left: 60px;
+}
+/* Top Bar */
+.top-bar {
+  height: 60px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  border-bottom: 1px solid #ddd;
+  position: relative;
+}
+/* Toggle Button for Sidebar */
+.toggle-btn {
+  font-size: 24px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: #0288D1;
+}
+/* Profile Section */
+.profile {
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+.profile img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+.profile-name {
+  margin-left: 10px;
+  font-weight: bold;
+}
+.dropdown {
+  position: absolute;
+  top: 60px;
+  right: 20px;
+  background: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  overflow: hidden;
+  display: none;
+  flex-direction: column;
+  min-width: 150px;
+  z-index: 1000;
+}
+.dropdown a {
+  padding: 10px;
+  color: #333;
+  text-decoration: none;
+  transition: background 0.3s;
+}
+.dropdown a:hover {
+  background: #f0f0f0;
+}
+/* Dashboard Container */
+.dashboard-container {
+  display: flex;
+  gap: 20px;
+  padding: 40px;
+}
+/* Dashboard Boxes */
+.dashboard-box {
+  position: relative;
+  background: #fff;
+  width: 220px;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-decoration: none;
+  color: #333;
+  font-size: 1.2em;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+.dashboard-box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+  background-color: #f9f9f9;
+}
+/* Ripple Effect for Dashboard Boxes */
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.2);
+  transform: scale(0);
+  animation: ripple 600ms linear;
+}
+@keyframes ripple {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}

@@ -1,0 +1,24 @@
+[
+    {
+        "username": "phos",
+        "name": "Anastasios",
+        "surname": "Droggitis",
+        "birthdate": "3333-03-03",
+        "email": "anastasiosdrog@hotmail.com",
+        "phone": "333333333",
+        "password": "$2y$10$H98FBo8crGrHeFblZUZZsumKY0P9yTx7Dfb15GYYKjwRJhWy5jVDW",
+        "Role": null,
+        "OTP": null
+    },
+    {
+        "username": "od",
+        "name": "od",
+        "surname": "adr",
+        "birthdate": "2000-12-12",
+        "email": "odd@gmail.com",
+        "phone": "6971231234",
+        "password": "$2y$10$PzhvqlnGVbEHE6u2hmtJc.VSVjInW1af.Dj.306kZfTlATo\/VCENa",
+        "Role": "manager",
+        "OTP": null
+    }
+]
