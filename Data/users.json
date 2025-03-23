@@ -1,0 +1,13 @@
+[
+    {
+        "username": "phos",
+        "name": "Anastasios",
+        "surname": "Droggitis",
+        "birthdate": "3333-03-03",
+        "email": "anastasiosdrog@hotmail.com",
+        "phone": "333333333",
+        "password": "$2y$10$H98FBo8crGrHeFblZUZZsumKY0P9yTx7Dfb15GYYKjwRJhWy5jVDW",
+        "Role": null,
+        "OTP": null
+    }
+]
