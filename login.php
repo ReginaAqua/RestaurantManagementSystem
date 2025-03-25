@@ -29,14 +29,19 @@ foreach ($users as $user) {
 }
 
 // Check if user was found and if the role is 'manager'
+// Check if user was found and if the role is 'manager'
 if ($found_user && $found_user['role'] == 'manager') {
-    $_SESSION["myuser"] = $finaluser;
-    header("Location: manager.html");
+    $_SESSION['usernm'] = $finaluser;
+    //session_write_close(); 
+    header("Location: AccountManagement.php");
+    exit(); 
 } elseif ($found_user) {
     // If the user exists but is not a manager, redirect to staff page
-    header("Location: staff.html");
+    header("Location: AccountManagement.php");
+    exit();
 } else {
     // If no matching user is found
      echo "Invalid username or password.";
+     exit();
 }
 ?>
