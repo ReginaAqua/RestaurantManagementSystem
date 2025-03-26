@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="../cssFiles/dash.css">
 </head>
 <body>
+  <form action="../phpFiles/dash.php" method="post"></form>
   <!-- Sidebar Navigation -->
   <div class="sidebar" id="sidebar">
     <a href=""><span>Dashboard</span></a>
@@ -24,7 +25,7 @@
       <div class="profile" id="profileBtn">
         <span class="profile-name">User Name</span> <!--This will have to change to the actual username-->
         <div class="dropdown" id="profileDropdown">
-          <a href="">Account Management</a>
+          <a href="../phpFiles/AccountManagement.php">Account Management</a>
           <a href="">Log Out</a>
         </div>
       </div>
@@ -32,7 +33,7 @@
     
     <!-- Dashboard Boxes -->
     <div class="dashboard-container">
-      <a href="" class="dashboard-box">
+      <a href="../phpFiles/AccountManagement.php" class="dashboard-box">
         Account Management
       </a>
       <a href="" class="dashboard-box">
