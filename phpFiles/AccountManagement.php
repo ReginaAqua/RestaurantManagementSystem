@@ -1,12 +1,12 @@
 <?php
-session_start();
-
-$json = 'Data/users.json';
-
+session_start(); //for cookies
+//READING USERS.JSON
+$json = '../Data/users.json';
+//check if it exists
 if (file_exists($json)) {
     $jsonData = file_get_contents($json);
     $users = json_decode($jsonData, true);
-
+    //checking if save was pressed to store the new data in users.json
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save'])) {
         $updatedEmail = $_POST['email'];
         $updatedPhone = $_POST['phone'];
@@ -23,7 +23,7 @@ if (file_exists($json)) {
         header("Location: AccountManagement.php");
         exit();
     }
-
+   //creating  table row with table data to showcase users info: changeable and non chang
     $userRows = '';
     foreach ($users as $user) {
         if (isset($_GET['edit']) && isset($user['username']) && $_SESSION['usernm'] == $user['username']) {
@@ -44,7 +44,8 @@ if (file_exists($json)) {
                 <td>" . htmlspecialchars($user['surname']) . "</td>
                 <td>" . htmlspecialchars($user['email']) . "</td>
                 <td>" . htmlspecialchars($user['phone']) . "</td>
-                <td><a href='AccountManagement.php?edit=1' class='edit-button'>Edit</a></td>
+                <td><a href='AccountManagement.php?edit=1' class='edit-button'>Edit</a>
+                <a href='Re-enablePassword.php' class='change-password'>Change Password</a></td>
             </tr>";
         }
     }
@@ -59,7 +60,7 @@ if (file_exists($json)) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Account Management</title>
-    <link rel="stylesheet" href="AccountManagement.css">
+    <link rel="stylesheet" href="../cssFiles/AccountManagement.css">
 </head>
 <body>
     <div class="container">
