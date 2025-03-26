@@ -1,6 +1,7 @@
 <?php
+session_start(); //for cookies
 //Requirements to access phpemailer to send emails to gmail using composer.
-require 'vendor/autoload.php'; // Adjust this if you're not using Composer
+require '../vendor/autoload.php'; // Adjust this if you're not using Composer
 
 // Include PHPMailer files
 use PHPMailer\PHPMailer\PHPMailer;
@@ -76,11 +77,12 @@ try {
 
     $OTP = rand(100000, 999999); //creating a 6 digit code for authentication which will be sent to the user's email.
     $OTP_str = strval($OTP);
-   foreach ($dec_data as $user)
+   foreach ($dec_data as $index => $user)
     {
         if($user['email'] === $email)
         {
-            $user['OTP'] = $OTP_str;
+            $dec_data[$index]['OTP'] = $OTP_str;
+            $_SESSION['email'] = $user['email'];
             break;
         }
         
@@ -91,11 +93,11 @@ try {
 
     // Send the email
     $mail->send();
-    echo 'A 6 digit code has been sent to your email for re-enabling your password.';
     //updating the json file data
-    $new_json_data = json_encode($dec_data, JSON_PRETTY_PRINT);
-    file_put_contents($json_file, $new_json_data);
-    
+    $json_en = json_encode($dec_data, JSON_PRETTY_PRINT);
+    file_put_contents($json_file, $json_en);
+    header("Location: ../htmlfiles/OTP.html");
+    exit();
 
 } catch (Exception $e) {
     echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
