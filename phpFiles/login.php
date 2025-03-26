@@ -1,5 +1,5 @@
 <?php
-
+session_start(); //for cookies
 // Define the path to the JSON file
 $json_file = '../Data/users.json';
 
@@ -27,16 +27,15 @@ foreach ($users as $user) {
         break;
     }
 }
-
 // Check if user was found and if the role is 'manager'
-if ($found_user && $found_user['role'] == 'manager') {
-    $_SESSION["myuser"] = $finaluser;
-    header("Location: ../htmlFiles/dash.html");
-} elseif ($found_user) {
-    // If the user exists but is not a manager, redirect to staff page
-    header("Location: ../htmlFiles/dash.html");
-} else {
+if ($found_user) {
+    $_SESSION['usernm'] = $finaluser;
+    header("Location: ../htmlfiles/dash.html");
+    exit(); 
+} 
+ else {
     // If no matching user is found
      echo "Invalid username or password.";
+     exit();
 }
 ?>
