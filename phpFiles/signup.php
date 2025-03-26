@@ -47,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 "message" => "Email already exists."
             ];
             echo json_encode($response);
-            exit;
+            exit();
         }
 
         if ($user['phone'] === $phone) {
@@ -56,7 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 "message" => "Phone number already exists."
             ];
             echo json_encode($response);
-            exit;
+            exit();
         }
 
         if ($user['username'] === $username) {
@@ -65,14 +65,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 "message" => "Username already exists."
             ];
             echo json_encode($response);
-            exit;
+            exit();
         }
     }
 
    //assign the data to json
     $dec_data[] = $user_data;
     $enc_data = json_encode($dec_data, JSON_PRETTY_PRINT);
-
     if (file_put_contents($json_file, $enc_data)) {
         $response = [
             "status" => "success",
@@ -85,8 +84,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             "message" => "Failed to write to the JSON file."
         ];
     }
-
-    // Return the response as JSON
-    echo json_encode($response);
 }
 ?>
