@@ -1,0 +1,11 @@
+23/03/2025
+
+Put the html files(plus one js file) in the folder htmlFiles
+Put the css files in the folder cssFiles
+Put the php files in the folder phpFiles
+
+Connected the signup page with the login so when users successfully sign up they are redirected to the login page. 
+(signup.php line 81)
+
+Connected the login page with the simple dashboard for every role.
+(login.php line 34 & 37)

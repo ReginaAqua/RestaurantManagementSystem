@@ -1,0 +1,84 @@
+body {
+    font-family: 'Palatino Bold';
+    background-image: url(../foto/marble_black.jpg); 
+    background-position: center;
+    background-size: cover;
+    height: 95vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: red;
+}
+
+/* Container for the form */
+.signup-container {
+    width: 320px;
+    background: radial-gradient(rgba(37, 37, 37, 0.6));  /* Dark transparent background */
+    box-shadow: 5px 10px 20px rgba(0, 0, 0, 0.6);
+    border-radius: 20px;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Center the heading */
+h2 {
+    font-size: 30px;
+    color: #dc0303;
+    margin-bottom: 20px;
+}
+
+/* Form styling */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Labels are aligned to the left */
+label {
+    margin-top: 10px;
+    font-size: 16px;
+    color: rgb(255, 111, 0);
+}
+
+/* Input fields styling */
+input {
+    width: 80%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 3px solid rgb(255, 111, 0);;
+    border-radius: 5px;
+    background-color: #cfd0cf;
+    color: #000;
+    font-family: 'Palatino Bold';
+    letter-spacing: 1px;
+    transition: 0.3s ease;
+    font-size: 16px;
+}
+
+input:hover {
+    border-bottom: solid #fff;
+}
+
+input::placeholder {
+    color: #fff;
+}
+
+/* Styling for the submit button */
+button {
+    font-size: 18px;
+    padding: 8px 16px;
+    margin-top: 20px;
+    border-radius: 5px;
+    background-color: #656161de;
+    color: rgb(255, 111, 0);
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s ease;
+}
+
+button:hover {
+    background-color: #858b86;
+}
+
+

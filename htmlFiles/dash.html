@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Interactive Dashboard</title>
+  <link rel="stylesheet" href="../cssFiles/dash.css">
+</head>
+<body>
+  <form action="../phpFiles/dash.php" method="post"></form>
+  <!-- Sidebar Navigation -->
+  <div class="sidebar" id="sidebar">
+    <a href=""><span>Dashboard</span></a>
+    <a href=""><span>Account Management</span></a>
+    <a href=""><span>Analytics</span></a>
+    <a href=""><span>Reservations</span></a>
+    <a href=""><span>Orders</span></a>
+  </div>
+  
+  <!-- Main Content Area -->
+  <div class="main" id="mainContent">
+    <!-- Top Bar -->
+    <div class="top-bar">
+      <button class="toggle-btn" id="toggleSidebar">&#9776;</button>
+      <div class="profile" id="profileBtn">
+        <span class="profile-name">User Name</span> <!--This will have to change to the actual username-->
+        <div class="dropdown" id="profileDropdown">
+          <a href="../phpFiles/AccountManagement.php">Account Management</a>
+          <a href="">Log Out</a>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Dashboard Boxes -->
+    <div class="dashboard-container">
+      <a href="../phpFiles/AccountManagement.php" class="dashboard-box">
+        Account Management
+      </a>
+      <a href="" class="dashboard-box">
+        Analytics
+      </a>
+    </div>
+  </div>
+  <script src="dash.js"></script>
+</body>
+</html>

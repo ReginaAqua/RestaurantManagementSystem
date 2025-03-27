@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OTP Verification</title>
+    <link rel="stylesheet" href="../cssFiles/OTP.css">
+</head>
+<body>
+
+<div class="otp-container">
+    <h2>Enter OTP Code</h2>
+    <p>Please enter the 6-digit OTP sent to your Email</p>
+    <form action="../phpFiles/OTP.php" method="POST">
+        <input type="text" id="otp1" name="otp1" class="otp-input" maxlength="1" oninput="moveFocus(this, 'otp2')" />
+        <input type="text" id="otp2" name="otp2" class="otp-input" maxlength="1" oninput="moveFocus(this, 'otp3')" />
+        <input type="text" id="otp3" name="otp3" class="otp-input" maxlength="1" oninput="moveFocus(this, 'otp4')" />
+        <input type="text" id="otp4" name="otp4" class="otp-input" maxlength="1" oninput="moveFocus(this, 'otp5')" />
+        <input type="text" id="otp5" name="otp5" class="otp-input" maxlength="1" oninput="moveFocus(this, 'otp6')" />
+        <input type="text" id="otp6" name="otp6" class="otp-input" maxlength="1" />
+        <br><br>
+        <button type="submit" class="otp-button">Verify OTP</button>
+    </form>
+</div>
+
+<script>
+    function moveFocus(currentInput, nextInputId) {
+        if (currentInput.value.length >= currentInput.maxLength) {
+            document.getElementById(nextInputId).focus();
+        }
+    }
+    
+</script>
+<script>
+    const params = new URLSearchParams(window.location.search);
+    const msg = params.get("msg");
+
+    if (msg === "invalid") {
+        alert("ERROR!\nInvalid OTP. Please try again.");
+    } else if (msg === "success") {
+        alert("OTP verified successfully!");
+    }
+</script>
+</body>
+</html>
