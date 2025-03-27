@@ -9,3 +9,17 @@ Connected the signup page with the login so when users successfully sign up they
 
 Connected the login page with the simple dashboard for every role.
 (login.php line 34 & 37)
+
+27/03/2025(meeting)
+
+staff Account Management creation (anas)
+
+Account Management, vertical & show only the signed up user (anas)
+
+Sign Up enter password two times (anas)
+
+Change password ask old password and check two times the new one, with error handling (anas)
+
+Customer Book a table (ody)
+
+
