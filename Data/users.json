@@ -9,5 +9,16 @@
         "password": "$2y$10$0b6.IoeZ.0OuyJn9HGGFyuqb31eRqwMiXX1tC\/xcaEoEutHra5VmC",
         "Role": null,
         "OTP": null
+    },
+    {
+        "username": "tomas",
+        "name": "Tomas",
+        "surname": "Karamanos",
+        "birthdate": "2003-08-31",
+        "email": "tomkarcar2003@gmail.com",
+        "phone": "6943253747",
+        "password": "$2y$10$CBUme8GroGr\/Y7grQZStHeHtEYyK6ko1HpUzOHwGpCw2JQa\/FsOtS",
+        "Role": null,
+        "OTP": null
     }
 ]
