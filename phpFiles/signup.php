@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         "email" => $email,
         "phone" => $phone,
         "password" => $hashed_password,  // Usually you don't send passwords in response, this is just for demonstration
-        "Role" => NULL,
+        "role" => NULL,
         "OTP" => NULL
     ];
    //Establish connection to the json file
