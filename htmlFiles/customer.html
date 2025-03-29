@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pizza Pellini's - Customer Dashboard</title>
+  <!-- Link to the external CSS file -->
+  <link rel="stylesheet" href="../cssFiles/customer.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+</head>
+<body>
+  <!-- Header Section -->
+  <section class="header">
+    <nav>
+      <a href="#"><img src="../foto/Company_Logo.png" alt="Company Logo"></a>
+      <div class="user-menu">
+        <span class="username">Loading... <i class="fa fa-caret-down"></i></span>
+        <div class="dropdown-content">
+          <a href="../phpFiles/reservations.php">See Reservations</a>
+          <a href="../phpFiles/account_settings.php">Account Settings</a>
+          <a href="../phpFiles/logout.php">Log Out</a>
+        </div>
+      </div>
+    </nav>
+    <div class="text-box">
+      <h1>Dragon's Pizzeria</h1>
+      <p>Where Tradition Meets Flavor</p>
+      <a href="../foto/fast-food-restaurant-menu.avif" class="hero-btn">Menu</a>
+    </div>
+    <div class="pizza">
+      <img src="../foto/pizzanum1.jpg" alt="Pizza">
+    </div>
+  </section>
+
+  <!-- Reservation Form Section -->
+  <section class="reservation">
+    <h2>Make a Reservation</h2>
+    <form action="../phpFiles/make_reservation.php" method="post">
+      <!-- A hidden input for username; its value will be filled by JavaScript -->
+      <input type="hidden" id="usernameField" name="username" value="">
+
+      <label for="num_people">Number of People:</label>
+      <select id="num_people" name="num_people">
+        <!-- Options from 1 to 15 -->
+        <script>
+          for (let i = 1; i <= 15; i++) {
+            document.write(`<option value="${i}">${i}</option>`);
+          }
+        </script>
+      </select>
+      
+      <label for="reservation_time">Time:</label>
+      <select id="reservation_time" name="reservation_time">
+        <option value="10:30">10:30</option>
+        <option value="11:00">11:00</option>
+        <option value="11:30">11:30</option>
+        <option value="12:00">12:00</option>
+        <option value="12:30">12:30</option>
+        <option value="13:00">13:00</option>
+        <option value="13:30">13:30</option>
+        <option value="14:00">14:00</option>
+        <!-- Add more options as needed -->
+      </select>
+      
+      <label for="reservation_date">Date:</label>
+      <input type="date" id="reservation_date" name="reservation_date">
+      
+      <button type="submit">Book Table</button>
+    </form>
+  </section>
+
+  <!-- JavaScript for dynamic content and dropdown toggle -->
+  <script>
+    // Fetch user data from the PHP endpoint and update the DOM
+    fetch("../phpFiles/get_user_data.php")
+      .then(response => response.json())
+      .then(data => {
+        if (data.error) {
+          // Optionally redirect to login if not logged in
+          window.location.href = "../htmlFiles/login.html";
+        } else {
+          // Update username in the nav
+          document.querySelector('.username').innerHTML = data.username + ' <i class="fa fa-caret-down"></i>';
+          // Set the hidden input field for username
+          document.getElementById('usernameField').value = data.username;
+        }
+      })
+      .catch(err => console.error('Error fetching user data:', err));
+
+    // Dropdown toggle for the user menu
+    document.querySelector('.username').addEventListener('click', function() {
+      var dropdown = document.querySelector('.dropdown-content');
+      dropdown.classList.toggle('show');
+    });
+    // Close dropdown if clicked outside
+    window.onclick = function(event) {
+      if (!event.target.matches('.username')) {
+        var dropdowns = document.getElementsByClassName("dropdown-content");
+        for (var i = 0; i < dropdowns.length; i++) {
+          var openDropdown = dropdowns[i];
+          if (openDropdown.classList.contains('show')) {
+            openDropdown.classList.remove('show');
+          }
+        }
+      }
+    }
+  </script>
+</body>
+</html>
