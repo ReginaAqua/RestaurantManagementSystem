@@ -24,6 +24,7 @@ $found_user = null;
 foreach ($users as $user) {
     if ($user['username'] == $finaluser && password_verify($finalpass, $user['password'])) {
         $found_user = $user;
+        $_SESSION['email'] = $user['email'];
         break;
     }
 }
