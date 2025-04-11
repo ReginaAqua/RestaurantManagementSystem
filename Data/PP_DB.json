@@ -1,3 +1,47 @@
 {
-  "reservations": []
+    "reservations": [
+        {
+            "username": "od",
+            "num_people": "1",
+            "reservation_time": "10:30",
+            "reservation_date": "2025-03-31",
+            "status": "active"
+        },
+        {
+            "username": "od",
+            "num_people": "1",
+            "reservation_time": "10:30",
+            "reservation_date": "2025-03-31",
+            "status": "active"
+        },
+        {
+            "username": "odd",
+            "num_people": "13",
+            "reservation_time": "14:00",
+            "reservation_date": "2025-04-21",
+            "status": "active"
+        },
+        {
+            "username": "odd",
+            "num_people": "7",
+            "reservation_time": "10:30",
+            "reservation_date": "2025-04-29",
+            "status": "active"
+        },
+        {
+            "username": "odd",
+            "num_people": "7",
+            "reservation_time": "13:30",
+            "reservation_date": "2025-05-03",
+            "status": "active"
+        },
+        {
+            "username": "odd",
+            "num_people": "1",
+            "reservation_time": "10:30",
+            "reservation_date": "2025-04-28",
+            "status": "active"
+        }
+    ],
+    "orders": []
 }

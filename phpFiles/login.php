@@ -25,13 +25,13 @@ foreach ($users as $user) {
 }
 
 if ($found_user) {
-    $_SESSION['usernm'] = $finaluser;
+    $_SESSION['username'] = $finaluser;
     $_SESSION['user_id'] = isset($found_user['id']) ? $found_user['id'] : null;
     // Use the correct JSON key "Role"
-    $role = isset($found_user['Role']) && $found_user['Role'] !== null ? strtolower($found_user['Role']) : '';
+    $role = isset($found_user['role']) && $found_user['role'] !== null ? strtolower($found_user['role']) : '';
     $_SESSION['role'] = $role;
 
-    if ($role === 'customer') {
+    if ($role === "customer") {
         header("Location: ../htmlFiles/customer.html");
         exit();
     } else {
