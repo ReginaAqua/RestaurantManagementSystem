@@ -174,10 +174,10 @@ $displayOrders = array_filter($data["orders"], function($order) {
                         <input type="hidden" name="orderID" value="<?php echo htmlspecialchars($order["orderID"]); ?>">
                         <?php if ($order["status"] === "pending"): ?>
                             <input type="hidden" name="status_action" value="mark_ready">
-                            <input type="submit" value="Mark Ready" style="color: black; background-color: yellow;">
+                            <input type="submit" value="Ready">
                         <?php elseif ($order["status"] === "ready"): ?>
                             <input type="hidden" name="status_action" value="remove">
-                            <input type="submit" value="Remove Order" class="small-button">
+                            <input type="submit" value="Served" class="small-button">
                         <?php endif; ?>
                     </form>
                 </td>
