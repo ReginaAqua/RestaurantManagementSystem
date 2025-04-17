@@ -1,22 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manage Orders</title>
-    <link rel="stylesheet" href="../cssFiles/orders.css">
+  <meta charset="UTF-8">
+  <title>Manage Orders</title>
+  <link rel="stylesheet" href="../cssFiles/orders.css">
 </head>
 <body>
-    <h1>Manage Orders</h1>
-
-    <div id="orders-list">
-        <!-- Orders will be dynamically inserted here -->
-    </div>
-
-    <!-- For Waitstaff: Button to Add Order -->
-    <div id="waitstaff-actions" class="actions">
-        <button onclick="window.location.href='../phpFiles/orders.php'">Add New Order</button>
-    </div>
-<!--deleted order.js(delete this also if everything works)-->
+  <h1>Manage Orders</h1>
+  
+  <!-- For Waitstaff: Button to Add Order -->
+  <div id="waitstaff-actions" class="actions">
+    <button onclick="window.location.href='../phpFiles/orders.php'">Order Manager</button>
+</div>
+  
+  <!-- Active orders will be injected here -->
+  <div id="activeOrdersContainer" class="table-section" style="margin: 20px auto 60px;">
+    <!-- JS will render the table or a "no orders" message -->
+  </div>
+  
+  <script>
+    async function renderActiveOrders() {
+      const container = document.getElementById('activeOrdersContainer');
+      try {
+        const resp = await fetch('../Data/PP_DB.json');
+        if (!resp.ok) throw new Error('Failed to load JSON');
+        const data = await resp.json();
+        const active = data.orders.filter(o => o.status === 'pending' || o.status === 'ready');
+        
+        if (active.length === 0) {
+          container.innerHTML = '<p class="no-orders">No active orders to display.</p>';
+          return;
+        }
+        
+        let html = '<table><thead><tr>'
+                 + '<th>OrderID</th>'
+                 + '<th>Table Number</th>'
+                 + '<th>Order</th>'
+                 + '<th>Comments</th>'
+                 + '<th>Order Time</th>'
+                 + '<th>Status</th>'
+                 + '</tr></thead><tbody>';
+        
+        for (const o of active) {
+          html += '<tr>'
+               + `<td>${o.orderID}</td>`
+               + `<td>${o.table_number}</td>`
+               + `<td>${o.order}</td>`
+               + `<td>${o.comments}</td>`
+               + `<td>${o.order_time}</td>`
+               + `<td>${o.status}</td>`
+               + '</tr>';
+        }
+        
+        html += '</tbody></table>';
+        container.innerHTML = html;
+      } catch (err) {
+        console.error(err);
+        container.innerHTML = '<p class="no-orders">Error loading orders.</p>';
+      }
+    }
+    
+    document.addEventListener('DOMContentLoaded', renderActiveOrders);
+  </script>
+  
 </body>
 </html>

@@ -1,70 +1,104 @@
-document.addEventListener("DOMContentLoaded", function() {
-    // Elements from the order form
-    const orderSearch = document.getElementById('orderSearch');
-    const suggestionsDiv = document.getElementById('suggestions');
-    const orderList = document.getElementById('orderList');
-    const hiddenOrderInput = document.getElementById('order');
+// htmlFiles/orders.js
 
-    // List of available foods
-    const availableFoods = ["Simple Pizza", "Special Pizza", "Pasta", "Carbonara", "Salad", "Greek Salad", "Trash"];
-
-    // Function to update the hidden "order" input based on current order list items
-    function updateHiddenOrder() {
-        const items = Array.from(orderList.querySelectorAll('li')).map(li => li.firstChild.textContent.trim());
-        hiddenOrderInput.value = items.join(', ');
+// List of available menu items
+const menuItems = [
+    "Simple Pizza",
+    "Special Pizza",
+    "Pasta",
+    "Carbonara",
+    "Salad",
+    "Greek Salad",
+    "Trash"
+  ];
+  
+  // DOM references
+  const searchInput      = document.getElementById("orderSearch");
+  const suggestionsDiv   = document.getElementById("suggestions");
+  const orderList        = document.getElementById("orderList");
+  const hiddenOrderInput = document.getElementById("order");
+  
+  // Object to track counts
+  let orderCounts = {};
+  
+  // Show matching suggestions as you type
+  searchInput.addEventListener("input", () => {
+    const query = searchInput.value.trim().toLowerCase();
+    if (!query) {
+      suggestionsDiv.style.display = "none";
+      return;
     }
-
-    // Function to display suggestions as the user types
-    orderSearch.addEventListener('input', function() {
-        const query = orderSearch.value.toLowerCase();
-        suggestionsDiv.innerHTML = '';
-        if (query === '') {
-            suggestionsDiv.style.display = 'none';
-            return;
-        }
-        const filtered = availableFoods.filter(food => food.toLowerCase().includes(query));
-        if (filtered.length === 0) {
-            suggestionsDiv.style.display = 'none';
-            return;
-        }
-        suggestionsDiv.style.display = 'block';
-        const ul = document.createElement('ul');
-        filtered.forEach(food => {
-            const li = document.createElement('li');
-            li.textContent = food;
-            li.addEventListener('click', function() {
-                // Check for duplicates
-                let exists = false;
-                orderList.querySelectorAll('li').forEach(existing => {
-                    if(existing.firstChild.textContent.trim() === food) {
-                        exists = true;
-                    }
-                });
-                if (!exists) {
-                    // Create a new list item with a delete option
-                    const newItem = document.createElement('li');
-                    newItem.innerHTML = food + ' <span style="color:red; cursor:pointer;">x</span>';
-                    newItem.querySelector('span').addEventListener('click', function() {
-                        orderList.removeChild(newItem);
-                        updateHiddenOrder();
-                    });
-                    orderList.appendChild(newItem);
-                    updateHiddenOrder();
-                }
-                // Clear the search input and hide suggestions
-                orderSearch.value = '';
-                suggestionsDiv.innerHTML = '';
-                suggestionsDiv.style.display = 'none';
-            });
-            ul.appendChild(li);
+  
+    const matches = menuItems.filter(item =>
+      item.toLowerCase().includes(query)
+    );
+  
+    if (matches.length) {
+      suggestionsDiv.innerHTML = "<ul>" +
+        matches.map(item => `<li>${item}</li>`).join("") +
+        "</ul>";
+      suggestionsDiv.style.display = "block";
+  
+      // Attach click handlers
+      suggestionsDiv.querySelectorAll("li").forEach(li => {
+        li.addEventListener("click", () => {
+          addItem(li.textContent);
+          suggestionsDiv.style.display = "none";
+          searchInput.value = "";
         });
-        suggestionsDiv.appendChild(ul);
-    });
-
-    // Hide suggestions if clicking outside of the search input
-    document.addEventListener('click', function(event) {
-        if (event.target !== orderSearch) {
-            suggestionsDiv.style.display = 'none';
-        }
-    });
-});
+      });
+    } else {
+      suggestionsDiv.style.display = "none";
+    }
+  });
+  
+  // Add an item (or increment its count)
+  function addItem(item) {
+    if (orderCounts[item]) {
+      // Already in list → increment
+      orderCounts[item]++;
+      const existingLi = [...orderList.children]
+        .find(li => li.dataset.item === item);
+      existingLi.querySelector(".count").textContent = orderCounts[item];
+    } else {
+      // New entry
+      orderCounts[item] = 1;
+      const li = document.createElement("li");
+      li.dataset.item = item;
+      li.innerHTML =
+        `<span class="count">1</span> x ` +
+        `<span class="item-name">${item}</span> ` +
+        `<span class="remove" title="Remove or decrement">×</span>`;
+      orderList.appendChild(li);
+  
+      // Remove button handler
+      li.querySelector(".remove").addEventListener("click", () => {
+        removeItem(item);
+      });
+    }
+    updateHiddenInput();
+  }
+  
+  // Remove/decrement an item when the “×” is clicked
+  function removeItem(item) {
+    if (orderCounts[item] > 1) {
+      orderCounts[item]--;
+      const existingLi = [...orderList.children]
+        .find(li => li.dataset.item === item);
+      existingLi.querySelector(".count").textContent = orderCounts[item];
+    } else {
+      delete orderCounts[item];
+      const existingLi = [...orderList.children]
+        .find(li => li.dataset.item === item);
+      existingLi.remove();
+    }
+    updateHiddenInput();
+  }
+  
+  // Update the hidden <input name="order"> with “count x item” comma‑separated
+  function updateHiddenInput() {
+    const parts = Object.entries(orderCounts).map(
+      ([item, count]) => `${count} x ${item}`
+    );
+    hiddenOrderInput.value = parts.join(", ");
+  }
+  
