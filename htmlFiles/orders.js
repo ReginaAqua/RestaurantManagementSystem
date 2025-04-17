@@ -2,13 +2,41 @@
 
 // List of available menu items
 const menuItems = [
-    "Simple Pizza",
-    "Special Pizza",
-    "Pasta",
-    "Carbonara",
-    "Salad",
-    "Greek Salad",
-    "Trash"
+    "Bruschetta",
+    "Garlic Bread",
+    "Stuffed Mushrooms",
+    "Arancini",
+    "Caprese Salad",
+    "Caesar Salad",
+    "Italian House Salad",
+    "Margherita",
+    "Pepperoni",
+    "Quattro Formaggi",
+    "Prosciutto e Rucola",
+    "Vegetariana",
+    "Diavola",
+    "Spaghetti Bolognese",
+    "Penne Arrabbiata",
+    "Fettuccine Alfredo",
+    "Lasagna al Forno",
+    "Gnocchi Pesto",
+    "Chicken Parmigiana",
+    "Veal Milanese",
+    "Grilled Salmon",
+    "Eggplant Parmigiana",
+    "French Fries",
+    "Grilled Vegetables",
+    "Side Salad",
+    "Tiramisu",
+    "Panna Cotta",
+    "Cannoli",
+    "Gelato",
+    "Espresso",
+    "Cappuccino",
+    "Limonata",
+    "House Red Wine",
+    "House White Wine",
+    "Mineral Water"
   ];
   
   // DOM references
@@ -22,14 +50,16 @@ const menuItems = [
   
   // Show matching suggestions as you type
   searchInput.addEventListener("input", () => {
-    const query = searchInput.value.trim().toLowerCase();
+    const rawQuery = searchInput.value.trim();
+    const query    = rawQuery.toLowerCase();
     if (!query) {
       suggestionsDiv.style.display = "none";
       return;
     }
   
+    // Match items that start with the query, case‑insensitive
     const matches = menuItems.filter(item =>
-      item.toLowerCase().includes(query)
+      item.toLowerCase().startsWith(query)
     );
   
     if (matches.length) {
@@ -56,7 +86,7 @@ const menuItems = [
     if (orderCounts[item]) {
       // Already in list → increment
       orderCounts[item]++;
-      const existingLi = [...orderList.children]
+      const existingLi = Array.from(orderList.children)
         .find(li => li.dataset.item === item);
       existingLi.querySelector(".count").textContent = orderCounts[item];
     } else {
@@ -82,12 +112,12 @@ const menuItems = [
   function removeItem(item) {
     if (orderCounts[item] > 1) {
       orderCounts[item]--;
-      const existingLi = [...orderList.children]
+      const existingLi = Array.from(orderList.children)
         .find(li => li.dataset.item === item);
       existingLi.querySelector(".count").textContent = orderCounts[item];
     } else {
       delete orderCounts[item];
-      const existingLi = [...orderList.children]
+      const existingLi = Array.from(orderList.children)
         .find(li => li.dataset.item === item);
       existingLi.remove();
     }
