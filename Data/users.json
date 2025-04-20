@@ -7,7 +7,7 @@
         "email": "anastasiosdrog@hotmail.com",
         "phone": "242",
         "password": "$2y$10$0b6.IoeZ.0OuyJn9HGGFyuqb31eRqwMiXX1tC\/xcaEoEutHra5VmC",
-        "role": null,
+        "role": "customer",
         "OTP": null
     },
     {
@@ -18,7 +18,7 @@
         "email": "tomkarcar2003@gmail.com",
         "phone": "6943253747",
         "password": "$2y$10$CBUme8GroGr\/Y7grQZStHeHtEYyK6ko1HpUzOHwGpCw2JQa\/FsOtS",
-        "role": null,
+        "role": "customer",
         "OTP": null
     },
     {
@@ -40,7 +40,18 @@
         "email": "odr@gmail.com",
         "phone": "6981231235",
         "password": "$2y$10$4LW\/anKXuSZWEV.Ty3zBAO60N91m0\/GWGtIwmOHmRf.ZCJS\/dClui",
-        "role": "kitchenstaff",
+        "role": "customer",
+        "OTP": null
+    },
+    {
+        "username": "test",
+        "name": "testestset",
+        "surname": "settes",
+        "birthdate": "2025-04-24",
+        "email": "etsttest@hotmail.com",
+        "phone": "687843864",
+        "password": "$2y$10$FFWE1EMRoVkownM1eGLvmOhkslsC3xPt3cQLr7tYSbmlk5Y9k3.VK",
+        "role": "customer",
         "OTP": null
     }
 ]

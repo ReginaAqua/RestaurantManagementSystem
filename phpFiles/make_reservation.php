@@ -2,7 +2,7 @@ $ cat make_reservation.php
 <?php
 session_start();
 
-if (!isset($_SESSION["username"])) {
+if (!isset($_SESSION["usernm"])) {
     header("Location: ../phpFiles/login.php");
     exit;
 }
@@ -12,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     exit;
 }
 
-$username = $_SESSION["username"];
+$username = $_SESSION["usernm"];
 $num_people = $_POST["num_people"];
 $reservation_time = $_POST["reservation_time"];
 $reservation_date = $_POST["reservation_date"];

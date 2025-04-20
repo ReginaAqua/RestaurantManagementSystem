@@ -1,4 +1,5 @@
 <?php
+ob_start(); // Starts output buffering
 session_start(); // Start session
 
 // Define the path to the JSON file
@@ -25,12 +26,11 @@ foreach ($users as $user) {
 }
 
 if ($found_user) {
-    $_SESSION['username'] = $finaluser;
+    $_SESSION['usernm'] = $finaluser;
     $_SESSION['user_id'] = isset($found_user['id']) ? $found_user['id'] : null;
     // Use the correct JSON key "Role"
-    $role = isset($found_user['role']) && $found_user['role'] !== null ? strtolower($found_user['role']) : '';
+    $role = isset($found_user['role']) && $found_user['role'] !== null ? strtolower(trim($found_user['role'])) : '';
     $_SESSION['role'] = $role;
-
     if ($role === "customer") {
         header("Location: ../htmlFiles/customer.html");
         exit();
@@ -42,4 +42,5 @@ if ($found_user) {
     echo "Invalid username or password.";
     exit();
 }
+ob_end_flush(); // Sends the output at the end
 ?>

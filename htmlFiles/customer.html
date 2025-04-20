@@ -71,19 +71,6 @@
 
   <!-- JavaScript for dynamic content and dropdown toggle -->
   <script>
-  fetch("../phpFiles/get_user_data.php")
-    .then(response => response.json())
-    .then(data => {
-      console.log("User data:", data); // Debug: log the fetched data
-      if (data.error) {
-        window.location.href = "../htmlFiles/login.html";
-      } else {
-        document.querySelector('.username').innerHTML = data.username + ' <i class="fa fa-caret-down"></i>';
-        document.getElementById('usernameField').value = data.username;
-      }
-    })
-    .catch(err => console.error('Error fetching user data:', err));
-
 
     // Dropdown toggle for the user menu
     document.querySelector('.username').addEventListener('click', function() {
