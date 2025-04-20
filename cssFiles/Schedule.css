@@ -1,0 +1,201 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    text-align: center;
+    padding: 30px;
+}
+
+.calendar-container {
+    width: 800px;              /* Fixed width for the entire calendar block */
+    min-height: 500px;             /* Optional: fixed height if you want a set size */
+    overflow: hidden;
+    display: inline-block;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.calendar-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.calendar-nav a {
+    text-decoration: none;
+    font-weight: bold;
+    color: #4CAF50;
+}
+
+h2 {
+    margin: 0;
+}
+
+.calendar {
+    border-collapse: collapse;
+    width: 100%;
+    height: 100%;               /* Fill container height */
+    table-layout: fixed;        /* Evenly spaced columns */
+}
+
+.calendar th, .calendar td {
+    border: 1px solid #ddd;
+    width: 14.28%;              /* 100% ÷ 7 days */
+    height: 80px;               /* Fixed height for each day */
+    vertical-align: top;
+    overflow: hidden;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+.calendar th {
+    background-color: #4CAF50;
+    color: white;
+    font-size: 14px;
+    height: 40px;             
+}
+
+.calendar td {
+    background-color: #fafafa;
+    font-size: 13px;
+    word-wrap: break-word;
+    text-align: left;
+    height: 80px;
+    min-height: 80px;
+}
+
+.calendar-cell.has-shift:hover {
+    background-color: #e6ffe6;
+}
+
+.calendar td.today {
+    background-color: #ffd700;
+    font-weight: bold;
+    border: 2px solid #ff9800;
+}
+
+.calendar-cell {
+    cursor: default; /* no pointer by default */
+}
+
+.calendar-cell.has-shift {
+    cursor: pointer; /* only show pointer if the cell has a shift */
+}
+
+.calendar-cell.has-shift:hover {
+    background-color: #e6ffe6; /* keep hover effect only for clickable cells */
+}
+
+.day-number {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.event {
+    background: #e0f7fa;
+    font-size: 11px;
+    color: #333;
+    margin: 2px 0;
+    padding: 2px 4px;
+    border-radius: 4px;
+    max-height: 40px;
+    overflow: hidden;
+}
+
+/* === Modal styles === */
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.5); /* dark transparent background */
+    padding-top: 100px;
+}
+
+.modal-content {
+    background-color: #ffffff;
+    margin: auto;
+    padding: 20px 30px;
+    border: 1px solid #888;
+    width: 400px;
+    max-width: 90%;
+    border-radius: 8px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    font-family: Arial, sans-serif;
+    animation: fadeIn 0.3s ease;
+}
+
+.modal-content h3 {
+    margin-top: 0;
+}
+
+.modal-content p {
+    margin: 8px 0;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.close-btn {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: -10px;
+}
+
+.close-btn:hover,
+.close-btn:focus {
+    color: #000;
+    text-decoration: none;
+}
+
+#modal-name:empty,
+#modal-name:contains("No shifts that day") {
+    color: #999;
+    font-style: italic;
+}
+.calendar-nav a {
+    padding: 8px 16px;
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.2s ease;
+}
+
+.calendar-nav a:hover {
+    background-color: #45a049;
+}
+#request-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: bold;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+#request-button:hover {
+    background-color: #45a049;
+}
+
+/*cool little animation*/
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
