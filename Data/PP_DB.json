@@ -79,14 +79,6 @@
             "comments": "pipi",
             "order_time": "13:18:44",
             "status": "served"
-        },
-        {
-            "orderID": 13,
-            "table_number": "5",
-            "order": "1 x Pepperoni, 1 x Tiramisu, 1 x Margherita, 1 x House Red Wine, 1 x House White Wine, 2 x Panna Cotta",
-            "comments": "the pepperoni burnt",
-            "order_time": "13:34:53",
-            "status": "pending"
         }
     ],
     "schedule": {
