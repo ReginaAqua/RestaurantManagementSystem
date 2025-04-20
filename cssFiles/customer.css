@@ -161,4 +161,39 @@
   .reservation form button:hover {
     background-color: #218838;
   }
-  
+  .reservation-success {
+    margin: 15px auto;
+    padding: 15px;
+    width: 90%;
+    max-width: 600px;
+    background-color: #e6ffe6;
+    border: 2px solid #38b738;
+    color: #206620;
+    border-radius: 5px;
+    font-weight: bold;
+    text-align: center;
+  }
+  .reservation-error {
+    margin: 15px auto;
+    padding: 15px;
+    width: 90%;
+    max-width: 600px;
+    background-color: #ffe6e6;
+    border: 2px solid #d43f3f;
+    color: #a11a1a;
+    border-radius: 5px;
+    font-weight: bold;
+    text-align: center;
+  }
+  .reservation-failed {
+    margin: 15px auto;
+    padding: 15px;
+    width: 90%;
+    max-width: 600px;
+    background-color: #ffe6e6;
+    border: 2px solid #d43f3f;
+    color: #a11a1a;
+    border-radius: 5px;
+    font-weight: bold;
+    text-align: center;
+  }

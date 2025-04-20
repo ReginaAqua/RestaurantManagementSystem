@@ -9,6 +9,8 @@ body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f9;
     color: #333;
+    overflow-y: auto;      
+    min-height: 100vh;     
 }
 
 .container {
@@ -22,19 +24,30 @@ header {
     margin-bottom: 30px;
 }
 
-header h1 {
+h1 {
+    text-align: center;
     font-size: 2.5rem;
     color: #333;
+    margin-bottom: 20px;
 }
 
 .user-table {
     background-color: white;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 10px; /* Reduced padding */
+    padding: 10px;
     overflow-x: auto;
 }
 .user-block {
+    margin-bottom: 30px;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    overflow: hidden; /* prevents content overflow */
+    box-sizing: border-box rgba(0,0,0,0.05);
+}
+.new-user-block {
     margin-bottom: 30px;
     padding: 15px;
     border: 1px solid #ccc;
@@ -43,7 +56,9 @@ header h1 {
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
 .user-block table {
-    width: 100%;
+    width: auto;
+    min-width: 500px;
+    margin: 0 auto;
 }
 
 table {
@@ -114,6 +129,35 @@ td {
 .save-button i {
     margin-right: 5px;
 }
+.add-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    text-align: center;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.add-button:hover {
+    background-color: #45a049;
+}
+.delete-button {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.delete-button:hover {
+    background-color: #d32f2f;
+}
 .sidebar {
     position: fixed;
     left: 0;
@@ -152,4 +196,21 @@ td {
 
 .change-password:hover {
     background-color: #218838;
+}
+
+.user-header {
+    font-weight: bold;
+    background-color: #007bff;
+    color: white;
+    padding: 12px 16px;
+    cursor: pointer;
+    border-radius: 5px 5px 0 0;
+    box-sizing: border-box;
+}
+.user-details {
+    padding: 16px;
+    background-color: #f9f9f9;
+    border-top: 1px solid #ddd;
+    box-sizing: border-box;
+    display:none; /* keep it none because the toggle wont work unless you click it twice*/
 }

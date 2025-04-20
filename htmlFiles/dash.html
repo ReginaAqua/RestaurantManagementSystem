@@ -10,12 +10,11 @@
   <form action="../phpFiles/dash.php" method="post"></form>
   <!-- Sidebar Navigation -->
   <div class="sidebar" id="sidebar">
-    <a href=""><span>Dashboard</span></a>
-    <a href=""><span>Account Management</span></a>
+    <a href="../htmlfiles/dash.html"><span>Dashboard</span></a>
+    <a href="../phpFiles/AccountManagement.php"><span>Account Management</span></a>
     <a href=""><span>Analytics</span></a>
-    <a href=""><span>Reservations</span></a>
-    <a href="../htmlFiles/orders.html"><span>Orders</span></a>
-    <a href="../phpFiles/previousOrders.php"><span>Previous Orders</span></a>
+    <a href="../phpFiles/manage_reservations.php"><span>Reservations</span></a>
+    <a href=""><span>Orders</span></a>
   </div>
   
   <!-- Main Content Area -->
@@ -27,7 +26,6 @@
         <span class="profile-name">User Name</span> <!--This will have to change to the actual username-->
         <div class="dropdown" id="profileDropdown">
           <a href="../phpFiles/AccountManagement.php">Account Management</a>
-          <a href="../phpFiles/Schedule.php">schedule</a>
           <a href="">Log Out</a>
         </div>
       </div>
@@ -44,11 +42,11 @@
       <a href="../phpFiles/StaffManagement.php" class="dashboard-box">
         Staff Management
       </a>
-      <a href="../phpFiles/Schedule.php" class="dashboard-box">
-        schedule
+      <a href="../phpFiles/manage_reservations.php" class="dashboard-box">
+        Reservations Management
       </a>
     </div>
   </div>
-  <script type="text/javascript" src="dash.js"></script>
+  <script src="dash.js"></script>
 </body>
 </html>

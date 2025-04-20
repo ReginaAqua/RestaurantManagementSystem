@@ -5,7 +5,7 @@ $json_file = "../Data/users.json";
 $json_data = file_get_contents($json_file);
 $json_dec = json_decode($json_data, true);
 
-// Check if the form is submitted
+// Checking if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Retrieving the password from the user's input
     $newPassword = $_POST['new-password'];
@@ -68,10 +68,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <form id="passwordForm" action="Re-enablePassword.php" method="POST">
             <label for="new-password">New Password</label>
             <input type="password" id="new-password" name="new-password" required>
-
             <label for="confirm-password">Confirm New Password</label>
             <input type="password" id="confirm-password" name="confirm-password" required>
-
+            <i class="fas fa-eye" onclick="see()"></i>
             <button type="submit">Change Password</button>
         </form>
 

@@ -108,4 +108,19 @@ button:hover {
 
     text-align: center;
     margin-left: 22%;
-}
+}   
+.fas.fa-eye {
+    cursor: pointer;
+    color: #f87400;
+    font-size: 18px;
+    transition: color 0.3s ease, transform 0.2s ease;
+  }
+  
+  .fas.fa-eye:hover {
+    color: #964003;
+    transform: scale(1.1);
+  }
+  
+  .fas.fa-eye:active {
+    transform: scale(0.95);
+  }

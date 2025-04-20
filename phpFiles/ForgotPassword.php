@@ -11,6 +11,7 @@ use PHPMailer\PHPMailer\Exception;
 $email = null;
 $phone_num = null;
 $username = null;
+$contact = trim($_POST['contact']);
 
 //Running a condition to check the input and assign it to the proper variable. Using trim function to remove whitespace from The beginning or the end of the input
 //Check if it's an Email 
@@ -38,41 +39,39 @@ $dec_data = json_decode($json_data, true);
 //in case the person didnt input an email, we will grab it using the username or phone number from json.
 if($email == null)
 {
-    foreach ($dec_data as $user)
-    {
- 
-      if($user['username'] === $username || $user['phone'] === $phone_num)
-      {
-        $email = $user['email'];
-        break;
-      }
-      else{
-        $response = [
-            "status" => "error",
-            "message" => "User does not exist with that input!"
-        ];
-        echo json_encode($response);
-        exit;
-      }
-
+    $found = false;
+    foreach ($dec_data as $user) {
+      if ($user['username'] === $username || $user['phone'] === $phone_num) {
+          $email = $user['email'];
+          $found = true;
+          break;
     }
+}
+    if (!$found) {
+      $response = [
+          "status" => "error",
+          "message" => "User does not exist with that input!"
+    ];
+     echo json_encode($response);
+    exit;
+}
+
 
 }
 
 $mail = new PHPMailer(true);  // Passing `true` enables exceptions
-
 try {
     //Server settings
     $mail->isSMTP();  // Setting mailer to use SMTP
     $mail->Host = 'smtp.gmail.com';  // Setting Gmail's SMTP server
     $mail->SMTPAuth = true;  // Enabling SMTP authentication
-    $mail->Username = 'anastasiosdrog@Gmail.com';  // Your Gmail address
+    $mail->Username = 'anastasiosdrog@gmail.com';  // Your Gmail address
     $mail->Password = 'zgau morr ihfz qdmt';  // Your app-specific password (if 2FA is enabled)
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;  // Enable TLS encryption
     $mail->Port = 587;  // TCP port to connect to (587 for Gmail)
 
     //Recipients
-    $mail->setFrom('anastasiosdrog@hotmail.com', 'sender');  // Sender's email
+    $mail->setFrom('anastasiosdrog@gmail.com', "Dragon's Pizzeria");// Sender's email
     $mail->addAddress($email);  // Recipient's email
 
     $OTP = rand(100000, 999999); //creating a 6 digit code for authentication which will be sent to the user's email.
@@ -96,7 +95,7 @@ try {
     //updating the json file data
     $json_en = json_encode($dec_data, JSON_PRETTY_PRINT);
     file_put_contents($json_file, $json_en);
-    header("Location: ../htmlfiles/OTP.html");
+    //header("Location: ../htmlfiles/OTP.html");
     exit();
 
 } catch (Exception $e) {

@@ -1,25 +1,47 @@
 [
     {
         "username": "phos",
+        "user_id": "PE0000001",
         "name": "Anastasios",
         "surname": "Droggitis",
         "birthdate": "3333-03-03",
         "email": "anastasiosdrog@hotmail.com",
-        "phone": "242",
-        "password": "$2y$10$0b6.IoeZ.0OuyJn9HGGFyuqb31eRqwMiXX1tC\/xcaEoEutHra5VmC",
-        "role": "customer",
+        "phone": "512521",
+        "password": "$2y$10$MQCY\/TGETOPQ3UZWcN3QXukCNWS4ZMQxGO7wSFuQgJQyBwDCc0kau",
+        "role": "Manager",
+        "OTP": "879134"
+    },
+    {
+        "username": "cloud9",
+        "user_id": "PE0000002",
+        "name": "cloud",
+        "surname": "jacob",
+        "birthdate": "2002-11-22",
+        "email": "cloud@hotmail.com",
+        "phone": "66666666612412",
+        "password": "$2y$10$KX9pHHZCLhfwNwgdLYDHmuQNa\/CSP0W\/Xuxs3XZlro9.3CjAmWOg.",
+        "role": "Cheff",
         "OTP": null
     },
     {
-        "username": "tomas",
-        "name": "Tomas",
-        "surname": "Karamanos",
-        "birthdate": "2003-08-31",
-        "email": "tomkarcar2003@gmail.com",
-        "phone": "6943253747",
-        "password": "$2y$10$CBUme8GroGr\/Y7grQZStHeHtEYyK6ko1HpUzOHwGpCw2JQa\/FsOtS",
-        "role": "customer",
+        "username": "water",
+        "user_id": "PE1042059",
+        "name": "water",
+        "surname": "cloud",
+        "birthdate": "2222-02-02",
+        "email": "watercloud@hotmail.com",
+        "phone": "635523523523",
+        "password": "$2y$10$yd43dVDb7WqbbQJGrg8kvuzHRfw75VGdlXqnCFXW7oiv5xl5TWSWW",
+        "role": "janitor",
         "OTP": null
+    },
+    {
+        "username": "user_1743855219954",
+        "name": "TETESATETTE",
+        "surname": "TEATEATEATETAA",
+        "email": "TEA@TEAT.COM",
+        "phone": "658756865",
+        "role": "TEATAET"
     },
     {
         "username": "od",
@@ -30,28 +52,6 @@
         "phone": "6971231234",
         "password": "$2y$10$Ac1HbqB7OxYF8fj8JAmpM.53EgKxQXyFOLKlIF2PdTdz0KTHk0piO",
         "role": "waitstaff",
-        "OTP": null
-    },
-    {
-        "username": "odd",
-        "name": "odi",
-        "surname": "dr",
-        "birthdate": "2002-12-06",
-        "email": "odr@gmail.com",
-        "phone": "6981231235",
-        "password": "$2y$10$4LW\/anKXuSZWEV.Ty3zBAO60N91m0\/GWGtIwmOHmRf.ZCJS\/dClui",
-        "role": "customer",
-        "OTP": null
-    },
-    {
-        "username": "test",
-        "name": "testestset",
-        "surname": "settes",
-        "birthdate": "2025-04-24",
-        "email": "etsttest@hotmail.com",
-        "phone": "687843864",
-        "password": "$2y$10$FFWE1EMRoVkownM1eGLvmOhkslsC3xPt3cQLr7tYSbmlk5Y9k3.VK",
-        "role": "customer",
         "OTP": null
     }
 ]

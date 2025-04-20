@@ -1,53 +1,58 @@
 {
     "reservations": [
         {
-            "username": "od",
+            "reservation_id": "67f5738eeaf11",
+            "user_id": "PE0000001",
+            "name": "Anastasios",
             "num_people": "1",
             "reservation_time": "10:30",
-            "reservation_date": "2025-03-31",
-            "status": "active"
+            "reservation_date": "2025-04-09",
+            "table": "VIP_1"
         },
         {
-            "username": "od",
+            "reservation_id": "67f576b479c83",
+            "user_id": "PE0000001",
+            "name": "Anastasios",
             "num_people": "1",
-            "reservation_time": "10:30",
-            "reservation_date": "2025-03-31",
-            "status": "active"
+            "reservation_time": "12:30",
+            "reservation_date": "2025-04-09",
+            "table": "VIP_1"
         },
         {
-            "username": "odd",
-            "num_people": "13",
-            "reservation_time": "14:00",
-            "reservation_date": "2025-04-21",
-            "status": "active"
-        },
-        {
-            "username": "odd",
-            "num_people": "7",
-            "reservation_time": "10:30",
-            "reservation_date": "2025-04-29",
-            "status": "active"
-        },
-        {
-            "username": "odd",
-            "num_people": "7",
-            "reservation_time": "13:30",
-            "reservation_date": "2025-05-03",
-            "status": "active"
-        },
-        {
-            "username": "odd",
+            "reservation_id": "67f578ce24924",
+            "user_id": "PE0000001",
+            "name": "Anastasios",
             "num_people": "1",
-            "reservation_time": "10:30",
-            "reservation_date": "2025-04-28",
-            "status": "active"
+            "reservation_time": "14:30",
+            "reservation_date": "2025-04-09",
+            "table": "VIP_1"
         },
         {
-            "username": "odd",
-            "num_people": "6",
-            "reservation_time": "13:00",
-            "reservation_date": "2025-12-13",
-            "status": "active"
+            "reservation_id": "67f578d025053",
+            "user_id": "PE0000001",
+            "name": "Anastasios",
+            "num_people": "1",
+            "reservation_time": "16:30",
+            "reservation_date": "2025-04-09",
+            "table": "VIP_1"
+        },
+        {
+            "reservation_id": "67f578d21e8ef",
+            "user_id": "PE0000001",
+            "name": "Anastasios",
+            "num_people": "1",
+            "reservation_time": "18:30",
+            "reservation_date": "2025-04-09",
+            "table": "VIP_1"
+        },
+        {
+            "reservation_id": "67f578d42ea1d",
+            "user_id": "PE0000001",
+            "name": "Anastasios",
+            "num_people": "1",
+            "reservation_time": "20:30",
+            "reservation_date": "2025-04-09",
+            "table": "VIP_1"
         }
     ],
     "orders": [
@@ -60,27 +65,19 @@
             "status": "pending"
         },
         {
+            "orderID": 1,
+            "table_number": "21",
+            "order": "1 x Salad",
+            "comments": "feffefe",
+            "order_time": "13:58:04",
+            "status": "pending"
+        },
+        {
             "orderID": 2,
-            "table_number": "6",
-            "order": "1 x Prosciutto e Rucola, 1 x Tiramisu, 1 x Pepperoni",
-            "comments": "dghdghhgghgh",
-            "order_time": "18:48:53",
-            "status": "pending"
-        },
-        {
-            "orderID": 3,
-            "table_number": "6",
-            "order": "1 x Prosciutto e Rucola, 1 x Tiramisu, 1 x Pepperoni",
-            "comments": "dghdghhgghgh",
-            "order_time": "18:48:58",
-            "status": "pending"
-        },
-        {
-            "orderID": 4,
-            "table_number": "6",
-            "order": "1 x Prosciutto e Rucola, 1 x Tiramisu, 1 x Pepperoni",
-            "comments": "dghdghhgghgh",
-            "order_time": "18:49:47",
+            "table_number": "3",
+            "order": "1 x Special Pizza",
+            "comments": "fefef",
+            "order_time": "14:00:07",
             "status": "pending"
         }
     ],
@@ -88,7 +85,7 @@
         "Sunday": [],
         "Monday": [
             {
-                "name": "jesse",
+                "name": "Jessie",
                 "start": "09:00",
                 "end": "17:00"
             }

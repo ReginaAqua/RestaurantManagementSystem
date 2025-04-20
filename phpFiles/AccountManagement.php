@@ -94,21 +94,50 @@ if (file_exists($json)) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Account Management</title>
     <link rel="stylesheet" href="../cssFiles/Management.css">
+    <link rel="stylesheet" href="../cssFiles/dash.css">
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Account Management</h1>
-        </header>
-        <div class="user-table">
-            <table>
-                <thead>
-                </thead>
-                <tbody>
-                    <?php echo $Rows; ?>
-                </tbody>
-            </table>
-        </div>
+    <!-- Sidebar Navigation -->
+<div class="sidebar" id="sidebar">
+  <a href="../htmlfiles/dash.html"><span>Dashboard</span></a>
+  <a href="../phpFiles/AccountManagement.php"><span>Account Management</span></a>
+  <a href=""><span>Analytics</span></a>
+  <a href="../phpFiles/manage_reservations.php"><span>Reservations</span></a>
+  <a href=""><span>Orders</span></a>
+</div>
+
+<!-- Main Content Area -->
+<div class="main" id="mainContent">
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <button class="toggle-btn" id="toggleSidebar">&#9776;</button>
+    <div class="profile" id="profileBtn">
+      <span class="profile-name">User Name</span>
+      <div class="dropdown" id="profileDropdown">
+        <a href="../phpFiles/AccountManagement.php">Account Management</a>
+        <a href="../htmlfiles/login.html">Log Out</a>
+      </div>
     </div>
+  </div>
+  
+  <!--  Move your content INSIDE this div -->
+  <div class="container">
+    <header>
+      <h1>Account Management</h1>
+    </header>
+    <div class="user-table">
+      <table>
+        <thead>
+        </thead>
+        <tbody>
+          <?php echo $Rows; ?>
+        </tbody>
+      </table>
+    </div>  
+  </div>
+</div> <!-- closing the .main div here -->
+
+<!-- JS file should stay right before </body> -->
+<script src="../htmlfiles/dash.js"></script>
 </body>
 </html>

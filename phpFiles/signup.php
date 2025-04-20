@@ -21,23 +21,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Hash the password (for the sake of this transformation, we don't store the password in the response)
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+    //creating a unique id for each user signing in
+    $randomNumber = mt_rand(1000000, 9999999);
+    // Adding a prefix "PE" to differentiate
+    $user_id = 'PE' . $randomNumber;
+    //Establish connection to the json file
+    $json_file = '../Data/users.json';
+    $json_data = file_get_contents($json_file);
+    $dec_data = json_decode($json_data, true);
+    //making sure the id made is unique. if its not it will keep making new ones until its unique.
+    $existing_ids = array_column($dec_data, 'user_id');
+    do {
+       $randomNumber = mt_rand(1000000, 9999999);
+       $user_id = 'PE' . $randomNumber;
+    } while (in_array($user_id, $existing_ids));
+
 
     // Prepare user data to be returned as JSON (without inserting to database)
     $user_data = [
         "username" => $username,
+        "user_id" => $user_id,
         "name" => $name,
         "surname" => $surname,
         "birthdate" => $birthdate,
         "email" => $email,
         "phone" => $phone,
-        "password" => $hashed_password,  // Usually you don't send passwords in response, this is just for demonstration
-        "role" => "customer",
+        "password" => $hashed_password, 
+        "role" => NULL,
         "OTP" => NULL
     ];
-   //Establish connection to the json file
-    $json_file = '../Data/users.json';
-    $json_data = file_get_contents($json_file);
-    $dec_data = json_decode($json_data, true);
 
     // Check for duplicate email, phone, or username
     foreach ($dec_data as $user) {
