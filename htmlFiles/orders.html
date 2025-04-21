@@ -7,17 +7,17 @@
 </head>
 <body>
   <h1>Manage Orders</h1>
-
+  
+  <!-- For Waitstaff: Button to Add Order -->
   <div id="waitstaff-actions" class="actions">
     <button onclick="window.location.href='../phpFiles/orders.php'">Order Manager</button>
+</div>
+  
+  <!-- Active orders will be injected here -->
+  <div id="activeOrdersContainer" class="table-section" style="margin: 20px auto 60px;">
+    <!-- JS will render the table or a "no orders" message -->
   </div>
-
-  <div class="table-container">
-    <div id="activeOrdersContainer" class="table-section" style="margin: 20px auto 60px;">
-      <!-- Table will be injected here -->
-    </div>
-  </div>
-
+  
   <script>
     async function renderActiveOrders() {
       const container = document.getElementById('activeOrdersContainer');
@@ -26,12 +26,12 @@
         if (!resp.ok) throw new Error('Failed to load JSON');
         const data = await resp.json();
         const active = data.orders.filter(o => o.status === 'pending' || o.status === 'ready');
-
+        
         if (active.length === 0) {
           container.innerHTML = '<p class="no-orders">No active orders to display.</p>';
           return;
         }
-
+        
         let html = '<table><thead><tr>'
                  + '<th>OrderID</th>'
                  + '<th>Table Number</th>'
@@ -39,9 +39,8 @@
                  + '<th>Comments</th>'
                  + '<th>Order Time</th>'
                  + '<th>Status</th>'
-                 + '<th>Action</th>'
                  + '</tr></thead><tbody>';
-
+        
         for (const o of active) {
           html += '<tr>'
                + `<td>${o.orderID}</td>`
@@ -50,10 +49,9 @@
                + `<td>${o.comments}</td>`
                + `<td>${o.order_time}</td>`
                + `<td>${o.status}</td>`
-               + `<td><button class="action-button">Read</button></td>`
                + '</tr>';
         }
-
+        
         html += '</tbody></table>';
         container.innerHTML = html;
       } catch (err) {
@@ -61,8 +59,9 @@
         container.innerHTML = '<p class="no-orders">Error loading orders.</p>';
       }
     }
-
+    
     document.addEventListener('DOMContentLoaded', renderActiveOrders);
   </script>
+  
 </body>
 </html>
