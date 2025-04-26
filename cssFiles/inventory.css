@@ -1,0 +1,110 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #E0F7FA; /* Light blue background */
+}
+
+header {
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.menu-icon {
+    font-size: 24px;
+    cursor: pointer;
+    color: #0288D1;
+}
+
+.username {
+    font-size: 16px;
+    font-weight: bold;
+    color: black;
+}
+
+main {
+    padding: 30px;
+    text-align: center;
+}
+
+h1 {
+    color: #0288D1;
+}
+
+.generate-report-form {
+    margin-bottom: 20px;
+}
+
+.generate-report-button {
+    background-color: #0288D1;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.generate-report-button:hover {
+    background-color: #0277BD;
+}
+
+.inventory-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.inventory-item {
+    background-color: white;
+    border: 2px solid #0288D1;
+    border-radius: 10px;
+    padding: 20px;
+    width: 250px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.inventory-item h3 {
+    color: #0288D1;
+    margin-bottom: 10px;
+}
+
+.inventory-item p {
+    margin: 5px 0;
+    color: #555;
+}
+
+.inventory-item form {
+    margin-top: 10px;
+}
+
+.inventory-item input[type="number"] {
+    width: 80px;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+.update-button {
+    background-color: #0288D1;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.update-button:hover {
+    background-color: #0277BD;
+}
+
+.no-inventory {
+    color: #555;
+    font-size: 18px;
+}
+``

@@ -1,5 +1,6 @@
-<?php
-// Specify the path to the JSON file
+ <?php
+/*
+Specify the path to the JSON file
 $filePath = '../Data/PP_DB.json';
 
 // Check if the file exists
@@ -27,3 +28,4 @@ if (file_exists($filePath)) {
     echo json_encode(["error" => "Database file not found."]);
 }
 ?>
+*/

@@ -57,22 +57,6 @@
     ],
     "orders": [
         {
-            "orderID": 1,
-            "table_number": "21",
-            "order": "1 x Salad",
-            "comments": "feffefe",
-            "order_time": "13:58:04",
-            "status": "pending"
-        },
-        {
-            "orderID": 1,
-            "table_number": "21",
-            "order": "1 x Salad",
-            "comments": "feffefe",
-            "order_time": "13:58:04",
-            "status": "pending"
-        },
-        {
             "orderID": 12,
             "table_number": "4",
             "order": "2 x Pasta, 1 x Special Pizza",
@@ -83,10 +67,34 @@
         {
             "orderID": 13,
             "table_number": "5",
-            "order": "1 x Pepperoni, 1 x Tiramisu, 1 x Margherita, 1 x House Red Wine, 1 x House White Wine, 2 x Panna Cotta",
-            "comments": "the pepperoni burnt",
-            "order_time": "13:34:53",
-            "status": "pending"
+            "order": "1 x Pepperoni, 1 x Prosciutto e Rucola, 1 x Tiramisu",
+            "comments": "u",
+            "order_time": "15:17:00",
+            "status": "served"
+        },
+        {
+            "orderID": 14,
+            "table_number": "5",
+            "order": "1 x Gnocchi Pesto, 1 x Pepperoni, 1 x Italian House Salad",
+            "comments": "ipi",
+            "order_time": "15:22:23",
+            "status": "served"
+        },
+        {
+            "orderID": 15,
+            "table_number": "5",
+            "order": "1 x Prosciutto e Rucola, 1 x Mineral Water, 1 x Diavola, 1 x Arancini, 1 x Eggplant Parmigiana",
+            "comments": "dgbdb",
+            "order_time": "15:43:35",
+            "status": "served"
+        },
+        {
+            "orderID": 16,
+            "table_number": "7",
+            "order": "",
+            "comments": "fhhrfyyeynh",
+            "order_time": "15:43:49",
+            "status": "served"
         }
     ],
     "schedule": {
@@ -104,5 +112,379 @@
         "Friday": [],
         "Saturday": []
     },
-    "schedule_req": []
+    "schedule_req": [],
+    "inventory": [
+        {
+            "item_name": "bread",
+            "quantity": 15,
+            "reorder_level": 5,
+            "supplier_info": "Default Supplier"
+        },
+        {
+            "item_name": "garlic",
+            "quantity": 20,
+            "reorder_level": 5,
+            "supplier_info": "Default Supplier"
+        },
+        {
+            "item_name": "butter",
+            "quantity": 10,
+            "reorder_level": 5,
+            "supplier_info": "Default Supplier"
+        },
+        {
+            "item_name": "herbs",
+            "quantity": 10,
+            "reorder_level": 5,
+            "supplier_info": "Default Supplier"
+        },
+        {
+            "item_name": "diced tomatoes",
+            "quantity": 10,
+            "reorder_level": 5,
+            "supplier_info": "Default Supplier"
+        },
+        {
+            "item_name": "basil",
+            "quantity": 10,
+            "reorder_level": 5,
+            "supplier_info": "Default Supplier"
+        },
+        {
+            "item_name": "olive oil",
+            "quantity": 10,
+            "reorder_level": 5,
+            "supplier_info": "Default Supplier"
+        },
+        {
+            "item_name": "mozzarella",
+            "quantity": 10,
+            "reorder_level": 5,
+            "supplier_info": "Default Supplier"
+        },
+        {
+            "item_name": "fresh mozzarella",
+            "quantity": 10,
+            "reorder_level": 5,
+            "supplier_info": "Default Supplier"
+        },
+        {
+            "item_name": "parmesan",
+            "quantity": 10,
+            "reorder_level": 5,
+            "supplier_info": "Default Supplier"
+        },
+        {
+            "item_name": "gorgonzola",
+            "quantity": 10,
+            "reorder_level": 5,
+            "supplier_info": "Default Supplier"
+        },
+        {
+            "item_name": "fontina",
+            "quantity": 10,
+            "reorder_level": 5,
+            "supplier_info": "Default Supplier"
+        },
+        {
+            "item_name": "tomato sauce",
+            "quantity": 10,
+            "reorder_level": 5,
+            "supplier_info": "Default Supplier"
+        },
+        {
+            "item_name": "spicy pepperoni",
+            "quantity": 10,
+            "reorder_level": 5,
+            "supplier_info": "Default Supplier"
+        },
+        {
+            "item_name": "prosciutto",
+            "quantity": 10,
+            "reorder_level": 5,
+            "supplier_info": "Default Supplier"
+        },
+        {
+            "item_name": "arugula",
+            "quantity": 10,
+            "reorder_level": 5,
+            "supplier_info": "Default Supplier"
+        },
+        {
+            "item_name": "bell peppers",
+            "quantity": 10,
+            "reorder_level": 5,
+            "supplier_info": "Default Supplier"
+        },
+        {
+            "item_name": "mushrooms",
+            "quantity": 10,
+            "reorder_level": 5,
+            "supplier_info": "Default Supplier"
+        },
+        {
+            "item_name": "onions",
+            "quantity": 10,
+            "reorder_level": 5,
+            "supplier_info": "Default Supplier"
+        },
+        {
+            "item_name": "black olives",
+            "quantity": 10,
+            "reorder_level": 5,
+            "supplier_info": "Default Supplier"
+        },
+        {
+            "item_name": "chili flakes",
+            "quantity": 10,
+            "reorder_level": 5,
+            "supplier_info": "Default Supplier"
+        },
+        {
+            "item_name": "spicy salami",
+            "quantity": 10,
+            "reorder_level": 5,
+            "supplier_info": "Default Supplier"
+        },
+        {
+            "item_name": "meat ragu",
+            "quantity": 10,
+            "reorder_level": 5,
+            "supplier_info": "Default Supplier"
+        },
+        {
+            "item_name": "beef",
+            "quantity": 10,
+            "reorder_level": 5,
+            "supplier_info": "Default Supplier"
+        },
+        {
+            "item_name": "ricotta",
+            "quantity": 10,
+            "reorder_level": 5,
+            "supplier_info": "Default Supplier"
+        },
+        {
+            "item_name": "penne pasta",
+            "quantity": 10,
+            "reorder_level": 5,
+            "supplier_info": "Default Supplier"
+        },
+        {
+            "item_name": "fettuccine noodles",
+            "quantity": 10,
+            "reorder_level": 5,
+            "supplier_info": "Default Supplier"
+        },
+        {
+            "item_name": "parmesan sauce",
+            "quantity": 10,
+            "reorder_level": 5,
+            "supplier_info": "Default Supplier"
+        },
+        {
+            "item_name": "basil pesto",
+            "quantity": 10,
+            "reorder_level": 5,
+            "supplier_info": "Default Supplier"
+        },
+        {
+            "item_name": "gnocchi",
+            "quantity": 10,
+            "reorder_level": 5,
+            "supplier_info": "Default Supplier"
+        },
+        {
+            "item_name": "risotto",
+            "quantity": 10,
+            "reorder_level": 5,
+            "supplier_info": "Default Supplier"
+        },
+        {
+            "item_name": "mozzarella (for stuffing)",
+            "quantity": 10,
+            "reorder_level": 5,
+            "supplier_info": "Default Supplier"
+        },
+        {
+            "item_name": "Italian sausage",
+            "quantity": 10,
+            "reorder_level": 5,
+            "supplier_info": "Default Supplier"
+        },
+        {
+            "item_name": "romaine lettuce",
+            "quantity": 10,
+            "reorder_level": 5,
+            "supplier_info": "Default Supplier"
+        },
+        {
+            "item_name": "croutons",
+            "quantity": 10,
+            "reorder_level": 5,
+            "supplier_info": "Default Supplier"
+        },
+        {
+            "item_name": "Caesar dressing",
+            "quantity": 10,
+            "reorder_level": 5,
+            "supplier_info": "Default Supplier"
+        },
+        {
+            "item_name": "mixed greens",
+            "quantity": 10,
+            "reorder_level": 5,
+            "supplier_info": "Default Supplier"
+        },
+        {
+            "item_name": "vinaigrette",
+            "quantity": 10,
+            "reorder_level": 5,
+            "supplier_info": "Default Supplier"
+        },
+        {
+            "item_name": "eggplant",
+            "quantity": 10,
+            "reorder_level": 5,
+            "supplier_info": "Default Supplier"
+        },
+        {
+            "item_name": "breaded chicken breast",
+            "quantity": 10,
+            "reorder_level": 5,
+            "supplier_info": "Default Supplier"
+        },
+        {
+            "item_name": "marinara sauce",
+            "quantity": 10,
+            "reorder_level": 5,
+            "supplier_info": "Default Supplier"
+        },
+        {
+            "item_name": "veal cutlet",
+            "quantity": 10,
+            "reorder_level": 5,
+            "supplier_info": "Default Supplier"
+        },
+        {
+            "item_name": "lemon wedges",
+            "quantity": 10,
+            "reorder_level": 5,
+            "supplier_info": "Default Supplier"
+        },
+        {
+            "item_name": "salmon fillet",
+            "quantity": 10,
+            "reorder_level": 5,
+            "supplier_info": "Default Supplier"
+        },
+        {
+            "item_name": "lemon-butter sauce",
+            "quantity": 10,
+            "reorder_level": 5,
+            "supplier_info": "Default Supplier"
+        },
+        {
+            "item_name": "seasonal vegetables",
+            "quantity": 10,
+            "reorder_level": 5,
+            "supplier_info": "Default Supplier"
+        },
+        {
+            "item_name": "potatoes (for fries)",
+            "quantity": 10,
+            "reorder_level": 5,
+            "supplier_info": "Default Supplier"
+        },
+        {
+            "item_name": "ladyfingers",
+            "quantity": 10,
+            "reorder_level": 5,
+            "supplier_info": "Default Supplier"
+        },
+        {
+            "item_name": "mascarpone",
+            "quantity": 10,
+            "reorder_level": 5,
+            "supplier_info": "Default Supplier"
+        },
+        {
+            "item_name": "coffee",
+            "quantity": 10,
+            "reorder_level": 5,
+            "supplier_info": "Default Supplier"
+        },
+        {
+            "item_name": "vanilla",
+            "quantity": 10,
+            "reorder_level": 5,
+            "supplier_info": "Default Supplier"
+        },
+        {
+            "item_name": "berry coulis",
+            "quantity": 10,
+            "reorder_level": 5,
+            "supplier_info": "Default Supplier"
+        },
+        {
+            "item_name": "cannoli shells",
+            "quantity": 10,
+            "reorder_level": 5,
+            "supplier_info": "Default Supplier"
+        },
+        {
+            "item_name": "sweet ricotta",
+            "quantity": 10,
+            "reorder_level": 5,
+            "supplier_info": "Default Supplier"
+        },
+        {
+            "item_name": "chocolate chips",
+            "quantity": 10,
+            "reorder_level": 5,
+            "supplier_info": "Default Supplier"
+        },
+        {
+            "item_name": "gelato (assorted flavors)",
+            "quantity": 10,
+            "reorder_level": 5,
+            "supplier_info": "Default Supplier"
+        },
+        {
+            "item_name": "espresso",
+            "quantity": 10,
+            "reorder_level": 5,
+            "supplier_info": "Default Supplier"
+        },
+        {
+            "item_name": "steamed milk",
+            "quantity": 10,
+            "reorder_level": 5,
+            "supplier_info": "Default Supplier"
+        },
+        {
+            "item_name": "milk foam",
+            "quantity": 10,
+            "reorder_level": 5,
+            "supplier_info": "Default Supplier"
+        },
+        {
+            "item_name": "sparkling water",
+            "quantity": 10,
+            "reorder_level": 5,
+            "supplier_info": "Default Supplier"
+        },
+        {
+            "item_name": "white wine",
+            "quantity": 10,
+            "reorder_level": 5,
+            "supplier_info": "Default Supplier"
+        },
+        {
+            "item_name": "red wine",
+            "quantity": 10,
+            "reorder_level": 5,
+            "supplier_info": "Default Supplier"
+        }
+    ]
 }

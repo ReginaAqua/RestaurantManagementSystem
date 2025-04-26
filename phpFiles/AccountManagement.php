@@ -98,13 +98,14 @@ if (file_exists($json)) {
 </head>
 <body>
     <!-- Sidebar Navigation -->
-<div class="sidebar" id="sidebar">
-  <a href="../htmlfiles/dash.html"><span>Dashboard</span></a>
-  <a href="../phpFiles/AccountManagement.php"><span>Account Management</span></a>
-  <a href=""><span>Analytics</span></a>
-  <a href="../phpFiles/manage_reservations.php"><span>Reservations</span></a>
-  <a href=""><span>Orders</span></a>
-</div>
+    <div class="sidebar" id="sidebar">
+    <a href="../htmlfiles/dash.html"><span>Dashboard</span></a>
+    <a href="../phpFiles/AccountManagement.php"><span>Account Management</span></a>
+    <a href="../phpFiles/inventory.php"><span>Inventory</span></a>
+    <a href="../phpFiles/manage_reservations.php"><span>Reservations</span></a>
+    <a href="../phpFiles/orders.php"><span>Orders</span></a>
+    <a href="../phpFiles/PreviousOrders.php"><span>Previous Orders</span></a>
+  </div>
 
 <!-- Main Content Area -->
 <div class="main" id="mainContent">

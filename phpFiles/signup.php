@@ -47,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         "email" => $email,
         "phone" => $phone,
         "password" => $hashed_password, 
-        "role" => NULL,
+        "role" => "customer",
         "OTP" => NULL
     ];
 
