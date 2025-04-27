@@ -5,7 +5,7 @@ use Dompdf\Dompdf;
 
 // --- SETTINGS ---
 $jsonFile = '../Data/PP_DB.json';
-$managementEmail = 'manager@example.com'; // Update with your real management email
+$managementEmail = 'manager@example.com'; // Update to your real management email
 
 // --- HANDLE POST REQUEST ---
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -33,6 +33,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $dompdf->setPaper('A4', 'portrait');
         $dompdf->render();
         $dompdf->stream('Daily_Inventory_Report.pdf');
+        exit;
+    } elseif (isset($_POST['add_item'])) {
+        // Adding a new item
+        $newItem = [
+            "item_name" => $_POST['item_name'],
+            "quantity" => floatval($_POST['quantity']),
+            "reorder_level" => intval($_POST['reorder_level']),
+            "supplier_info" => $_POST['supplier_info']
+        ];
+        if (!isset($db['inventory'])) {
+            $db['inventory'] = [];
+        }
+        $db['inventory'][] = $newItem;
+        file_put_contents($jsonFile, json_encode($db, JSON_PRETTY_PRINT));
+        header('Location: inventory.php');
         exit;
     } else {
         // Update quantity
@@ -75,12 +90,11 @@ $inventory = $db['inventory'] ?? [];
     <link rel="stylesheet" href="../cssFiles/inventory.css">
 </head>
 <body>
-
 <header>
-    <div class="menu-icon">☰</div>
-    <div class="username">Inventory</div>
+<div class="header-container">
+        <button class="add-item-button" onclick="openAddForm()">Add Item</button>
+    </div>
 </header>
-
 <main>
     <h1>Current Inventory</h1>
 
@@ -88,6 +102,19 @@ $inventory = $db['inventory'] ?? [];
         <input type="hidden" name="generate_report" value="1">
         <button type="submit" class="generate-report-button">Generate Daily Report</button>
     </form>
+
+    <!-- Hidden Add Item Form -->
+    <div id="addItemForm" class="add-item-form" style="display:none;">
+        <form method="POST">
+            <input type="hidden" name="add_item" value="1">
+            <input type="text" name="item_name" placeholder="Item Name" required>
+            <input type="text" name="supplier_info" placeholder="Supplier Info" required>
+            <input type="number" name="reorder_level" placeholder="Reorder Level" required>
+            <input type="number" name="quantity" placeholder="Quantity" step="0.01" required>
+            <button type="submit" class="add-button">Add Item</button>
+            <button type="button" class="cancel-button" onclick="closeAddForm()">Cancel</button>
+        </form>
+    </div>
 
     <div class="inventory-container">
         <?php if (empty($inventory)): ?>
@@ -109,5 +136,11 @@ $inventory = $db['inventory'] ?? [];
     </div>
 </main>
 
-</body>
-</html>
+<script>
+function openAddForm() {
+    document.getElementById('addItemForm').style.display = 'block';
+}
+function closeAddForm() {
+    document.getElementById('addItemForm').style.display = 'none';
+}
+</script>

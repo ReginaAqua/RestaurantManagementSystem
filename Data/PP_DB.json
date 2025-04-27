@@ -485,6 +485,12 @@
             "quantity": 10,
             "reorder_level": 5,
             "supplier_info": "Default Supplier"
+        },
+        {
+            "item_name": "sakma",
+            "quantity": 2,
+            "reorder_level": 50,
+            "supplier_info": "maria 2271033439"
         }
     ]
 }

@@ -7,13 +7,12 @@ body {
 
 header {
     background-color: white;
+    padding-left: 90%;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 15px 20px;
+    justify-content: space-between;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
-
 .menu-icon {
     font-size: 24px;
     cursor: pointer;
@@ -107,4 +106,64 @@ h1 {
     color: #555;
     font-size: 18px;
 }
-``
+
+.add-item-form {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px auto;
+    width: 300px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    text-align: center;
+}
+
+.add-item-form input[type="text"],
+.add-item-form input[type="number"] {
+    width: 90%;
+    padding: 8px;
+    margin: 5px 0;
+}
+
+.add-button, .cancel-button {
+    background-color: #0288D1;
+    color: white;
+    border: none;
+    margin: 5px;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.cancel-button {
+    background-color: #f44336;
+}
+
+.menu-icon{
+    padding-left: 90%;
+}
+.header-container {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.page-title {
+    margin: 0;
+    font-size: 24px;
+    color: #0288D1;
+}
+
+.add-item-button {
+    background-color: #0288D1;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.add-item-button:hover {
+    background-color: #0277BD;
+}
