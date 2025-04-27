@@ -53,5 +53,17 @@
         "password": "$2y$10$Ac1HbqB7OxYF8fj8JAmpM.53EgKxQXyFOLKlIF2PdTdz0KTHk0piO",
         "role": "waitstaff",
         "OTP": null
+    },
+    {
+        "username": "odd",
+        "user_id": "PE2905682",
+        "name": "odd",
+        "surname": "di",
+        "birthdate": "2002-12-12",
+        "email": "p@gmail.com",
+        "phone": "6941231239",
+        "password": "$2y$10$R5hk8PlAgqBRu85klmpOreCEKoKmzfZ3zIDbr7mk71hBT7IDCAP5G",
+        "role": "waitstaff",
+        "OTP": null
     }
 ]
