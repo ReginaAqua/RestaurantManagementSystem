@@ -2,14 +2,11 @@
 session_start(); // for cookies
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Define the path to the JSON file
     $json_file = '../Data/users.json';
 
-    // Read and decode user data
     $json_data = file_get_contents($json_file);
     $users = json_decode($json_data, true);
 
-    // Sanitize POST input
     $usertrim = trim($_POST['username']);
     $userstrip = stripcslashes($usertrim);
     $finaluser = htmlspecialchars($userstrip);
@@ -18,7 +15,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $passstrip = stripcslashes($passtrim);
     $finalpass = htmlspecialchars($passstrip);
 
-    // Search for matching user
     $found_user = null;
     foreach ($users as $user) {
         if ($user['username'] == $finaluser && password_verify($finalpass, $user['password'])) {
@@ -30,8 +26,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($found_user) {
         $_SESSION['usernm'] = $finaluser;
-        header("Location: ../htmlfiles/dash.html");
-        exit();
+        $_SESSION['user_id'] = isset($found_user['id']) ? $found_user['id'] : null;
+        $role = isset($found_user['role']) && $found_user['role'] !== null ? strtolower(trim($found_user['role'])) : '';
+        $_SESSION['role'] = $role;
+
+        if ($role === "customer") {
+            header("Location: ../htmlFiles/customer.html");
+            exit();
+        } else {
+            header("Location: ../htmlfiles/dash.html");
+            exit();
+        }
     } else {
         echo "Invalid username or password.";
         exit();

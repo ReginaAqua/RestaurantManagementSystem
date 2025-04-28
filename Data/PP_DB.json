@@ -53,6 +53,15 @@
             "reservation_time": "20:30",
             "reservation_date": "2025-04-09",
             "table": "VIP_1"
+        },
+        {
+            "reservation_id": "680f83302ca54",
+            "user_id": "PE2905682",
+            "name": "odd",
+            "num_people": "1",
+            "reservation_time": "10:30",
+            "reservation_date": "2025-12-12",
+            "table": "VIP_1"
         }
     ],
     "orders": [
@@ -95,6 +104,30 @@
             "comments": "fhhrfyyeynh",
             "order_time": "15:43:49",
             "status": "served"
+        },
+        {
+            "orderID": 17,
+            "table_number": "6",
+            "order": "1 x Pepperoni, 1 x Italian House Salad, 1 x Tiramisu, 1 x Arancini",
+            "comments": "no food in me food",
+            "order_time": "14:53:34",
+            "status": "served"
+        },
+        {
+            "orderID": 18,
+            "table_number": "6",
+            "order": "1 x Pepperoni, 1 x Italian House Salad, 1 x Tiramisu, 1 x Arancini",
+            "comments": "no food in me food",
+            "order_time": "14:53:54",
+            "status": "pending"
+        },
+        {
+            "orderID": 19,
+            "table_number": "5",
+            "order": "2 x Prosciutto e Rucola, 1 x Mineral Water",
+            "comments": "pipipi",
+            "order_time": "15:28:26",
+            "status": "pending"
         }
     ],
     "schedule": {
@@ -118,17 +151,17 @@
             "item_name": "bread",
             "quantity": 15,
             "reorder_level": 5,
-            "supplier_info": "Default Supplier"
+            "supplier_info": "Ms. Bredman, 6981234567, Dimofontos 19"
         },
         {
             "item_name": "garlic",
-            "quantity": 20,
+            "quantity": 12,
             "reorder_level": 5,
             "supplier_info": "Default Supplier"
         },
         {
             "item_name": "butter",
-            "quantity": 10,
+            "quantity": 9,
             "reorder_level": 5,
             "supplier_info": "Default Supplier"
         },
@@ -194,7 +227,7 @@
         },
         {
             "item_name": "spicy pepperoni",
-            "quantity": 10,
+            "quantity": 2,
             "reorder_level": 5,
             "supplier_info": "Default Supplier"
         },
@@ -218,7 +251,7 @@
         },
         {
             "item_name": "mushrooms",
-            "quantity": 10,
+            "quantity": 9,
             "reorder_level": 5,
             "supplier_info": "Default Supplier"
         },
@@ -492,5 +525,73 @@
             "reorder_level": 50,
             "supplier_info": "maria 2271033439"
         }
-    ]
+    ],
+    "inventory_snapshot": {
+        "date": "2025-04-28",
+        "inventory": {
+            "bread": 15,
+            "garlic": 20,
+            "butter": 4.41,
+            "herbs": 10,
+            "diced tomatoes": 10,
+            "basil": 10,
+            "olive oil": 10,
+            "mozzarella": 10,
+            "fresh mozzarella": 10,
+            "parmesan": 10,
+            "gorgonzola": 10,
+            "fontina": 10,
+            "tomato sauce": 10,
+            "spicy pepperoni": 10,
+            "prosciutto": 10,
+            "arugula": 10,
+            "bell peppers": 10,
+            "mushrooms": 10,
+            "onions": 10,
+            "black olives": 10,
+            "chili flakes": 10,
+            "spicy salami": 10,
+            "meat ragu": 10,
+            "beef": 10,
+            "ricotta": 10,
+            "penne pasta": 10,
+            "fettuccine noodles": 10,
+            "parmesan sauce": 10,
+            "basil pesto": 10,
+            "gnocchi": 10,
+            "risotto": 10,
+            "mozzarella (for stuffing)": 10,
+            "Italian sausage": 10,
+            "romaine lettuce": 10,
+            "croutons": 10,
+            "Caesar dressing": 10,
+            "mixed greens": 10,
+            "vinaigrette": 10,
+            "eggplant": 10,
+            "breaded chicken breast": 10,
+            "marinara sauce": 10,
+            "veal cutlet": 10,
+            "lemon wedges": 10,
+            "salmon fillet": 10,
+            "lemon-butter sauce": 10,
+            "seasonal vegetables": 10,
+            "potatoes (for fries)": 10,
+            "ladyfingers": 10,
+            "mascarpone": 10,
+            "coffee": 10,
+            "vanilla": 10,
+            "berry coulis": 10,
+            "cannoli shells": 10,
+            "sweet ricotta": 10,
+            "chocolate chips": 10,
+            "gelato (assorted flavors)": 10,
+            "espresso": 10,
+            "steamed milk": 10,
+            "milk foam": 10,
+            "sparkling water": 10,
+            "white wine": 10,
+            "red wine": 10,
+            "sakma": 2
+        }
+    }
 }

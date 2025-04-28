@@ -35,7 +35,8 @@ h1 {
 }
 
 .generate-report-form {
-    margin-bottom: 20px;
+    margin: 20px 0;
+    text-align: center;
 }
 
 .generate-report-button {
@@ -43,9 +44,10 @@ h1 {
     color: white;
     border: none;
     padding: 10px 20px;
-    border-radius: 6px;
-    cursor: pointer;
     font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
 .generate-report-button:hover {
@@ -135,7 +137,7 @@ h1 {
 }
 
 .cancel-button {
-    background-color: #f44336;
+    background-color: #d42b38;
 }
 
 .menu-icon{
@@ -166,4 +168,33 @@ h1 {
 
 .add-item-button:hover {
     background-color: #0277BD;
+}
+
+.edit-button {
+    background-color: #30cf82;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.edit-button:hover {
+    background-color: #3fc07e;
+}
+
+
+.inventory-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; 
+    align-items: center;
+    padding-top: 10px; 
+}
+
+.low-stock {
+    border: 2px solid red;
+    background-color: #ffe6e6; 
 }
