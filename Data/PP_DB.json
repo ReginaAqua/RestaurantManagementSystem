@@ -131,13 +131,7 @@
         }
     ],
     "schedule": {
-        "Sunday": [
-            {
-                "name": "TETESATETTE TEATEATEATETAA",
-                "start": "22:22",
-                "end": "10:22"
-            }
-        ],
+        "Sunday": [],
         "Monday": [
             {
                 "name": "Anastasios Droggitis",
@@ -591,11 +585,11 @@
         }
     ],
     "inventory_snapshot": {
-        "date": "2025-04-28",
+        "date": "2025-05-05",
         "inventory": {
             "bread": 15,
-            "garlic": 20,
-            "butter": 4.41,
+            "garlic": 12,
+            "butter": 9,
             "herbs": 10,
             "diced tomatoes": 10,
             "basil": 10,
@@ -606,11 +600,11 @@
             "gorgonzola": 10,
             "fontina": 10,
             "tomato sauce": 10,
-            "spicy pepperoni": 10,
+            "spicy pepperoni": 2,
             "prosciutto": 10,
             "arugula": 10,
             "bell peppers": 10,
-            "mushrooms": 10,
+            "mushrooms": 9,
             "onions": 10,
             "black olives": 10,
             "chili flakes": 10,

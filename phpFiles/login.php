@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             header("Location: ../htmlFiles/customer.html");
             exit();
         } else {
-            header("Location: ../htmlfiles/dash.html");
+            header("Location: dash.php");
             exit();
         }
     } else {

@@ -166,7 +166,7 @@ $inventory = $db['inventory'] ?? [];
 
 <!-- Sidebar -->
 <div class="sidebar" id="sidebar">
-    <a href="../htmlfiles/dash.html"><span>Dashboard</span></a>
+    <a href="../phpFiles/dash.php"><span>Dashboard</span></a>
     <a href="../phpFiles/AccountManagement.php"><span>Account Management</span></a>
     <a href="../phpFiles/inventory.php"><span>Inventory</span></a>
     <a href="../phpFiles/manage_reservations.php"><span>Reservations</span></a>

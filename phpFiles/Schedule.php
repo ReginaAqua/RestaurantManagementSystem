@@ -418,5 +418,30 @@ function confirmLogout() {
     }
 }
 </script>
+<!-- Submit Request Modal -->
+<div id="requestModal" class="modal" style="display:none;">
+  <div class="modal-content">
+    <h3>Submit Request</h3>
+    <form id="requestForm" method="post" action="">
+      <textarea id="request_textarea" name="request_text" maxlength="300" placeholder="Enter your request..." required></textarea>
+      <p id="charCount">300 characters remaining</p>
+      <div class="button-group">
+        <button type="submit">Submit</button>
+        <button type="button" id="cancelRequestBtn">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- View Requests Modal -->
+<div id="viewRequestsModal" class="modal" style="display:none;">
+  <div class="modal-content">
+    <h3>Your Requests</h3>
+    <div id="requestsList"></div>
+    <div class="button-group">
+      <button type="button" id="closeViewRequestsBtn">Close</button>
+    </div>
+  </div>
+</div>
 </body>
 </html>
