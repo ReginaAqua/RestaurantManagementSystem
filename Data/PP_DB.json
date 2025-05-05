@@ -74,21 +74,85 @@
         }
     ],
     "schedule": {
-        "Sunday": [],
-        "Monday": [
+        "Sunday": [
             {
-                "name": "Jessie",
-                "start": "09:00",
-                "end": "17:00"
+                "name": "TETESATETTE TEATEATEATETAA",
+                "start": "22:22",
+                "end": "10:22"
             }
         ],
-        "Tuesday": [],
-        "Wednesday": [],
+        "Monday": [
+            {
+                "name": "Anastasios Droggitis",
+                "start": "03:33",
+                "end": "12:00"
+            },
+            {
+                "name": "cloud jacob",
+                "start": "22:21",
+                "end": "09:22"
+            }
+        ],
+        "Tuesday": [
+            {
+                "name": "water cloud",
+                "start": "22:55",
+                "end": "00:57"
+            }
+        ],
+        "Wednesday": [
+            {
+                "name": "water cloud",
+                "start": "21:22",
+                "end": "09:22"
+            }
+        ],
         "Thursday": [],
-        "Friday": [],
+        "Friday": [
+            {
+                "name": "Anastasios Droggitis",
+                "start": "22:21",
+                "end": "10:23"
+            }
+        ],
         "Saturday": []
     },
-    "schedule_req": [],
+    "schedule_req": {
+        "Anastasios Droggitis": {
+            "2025-04-27": [
+                {
+                    "request": "ffwfw",
+                    "status": false
+                },
+                {
+                    "request": "ffwfw",
+                    "status": false
+                },
+                {
+                    "request": "FEWFWEF",
+                    "status": true
+                },
+                {
+                    "request": "FEWFWEF",
+                    "status": true
+                }
+            ],
+            "2025-04-28": [
+                {
+                    "request": "fwfwa",
+                    "status": null
+                },
+                {
+                    "request": "fwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww",
+                    "status": false
+                },
+                {
+                    "request": "fwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww",
+                    "status": false
+                }
+            ]
+        }
+    },
     "inventory": [
         {
             "item_name": "bread",
@@ -468,5 +532,17 @@
             "reorder_level": 50,
             "supplier_info": "maria 2271033439"
         }
-    ]
+    ],
+    "requests": {
+        "2025-04-27": [
+            {
+                "request": "request_text=please+help+me%0D%0A",
+                "status": null
+            },
+            {
+                "request": "request_text=please+help+me+%3A%29",
+                "status": null
+            }
+        ]
+    }
 }

@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($found_user) {
         $_SESSION['usernm'] = $finaluser;
-        header("Location: ../htmlfiles/dash.html");
+        header("Location: ../phpFiles/dash.php");
         exit();
     } else {
         echo "Invalid username or password.";

@@ -147,12 +147,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete'])) {
 
   <!-- Sidebar Navigation -->
   <div class="sidebar" id="sidebar">
-    <a href="../htmlfiles/dash.html"><span>Dashboard</span></a>
-    <a href="../phpFiles/AccountManagement.php"><span>Account Management</span></a>
-    <a href=""><span>Analytics</span></a>
-    <a href="../phpFiles/manage_reservations.php"><span>Reservations</span></a>
-    <a href="../phpFiles/StaffManagement.php"><span>Staff Management</span></a>
-  </div>
+      <a href="../phpfiles/dash.php"><span>Dashboard</span></a>
+      <a href="../phpFiles/AccountManagement.php"><span>Account Management</span></a>
+      <a href="#"><span>Analytics</span></a>
+      <a href="../phpFiles/Schedule.php"><span>Schedule</span></a>
+      <a href="../phpFiles/inventory.php"><span>Inventory</span></a>
+      <a href="../phpFiles/manage_reservations.php"><span>Reservations</span></a>
+      <a href="../phpFiles/orders.php"><span>Orders</span></a>
+      <a href="../phpFiles/StaffManagement.php"><span>Staff Management</span></a>
+      <a href="../phpFiles/scheduleManager.php"><span>Schedule Management</span></a>
+      <a href="../phpFiles/PreviousOrders.php"><span>Previous Orders</span></a>
+    </div>
 
   <!-- Main Content Area -->
   <div class="main" id="mainContent">
@@ -242,6 +247,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete'])) {
       header.innerHTML = (isVisible ? "▶" : "▼") + " " + header.textContent.slice(2);
     }
   </script>
-
+<!--logout script-->
+<script>
+function confirmLogout() {
+    if (confirm("Are you sure you want to log out?")) {
+        //  make a fetch request to logout.php
+        fetch('logout.php')
+            .then(response => {
+                if (response.ok) {
+                    // you can redirect after a successful fetch
+                    window.location.href = "../htmlfiles/login.html";
+                } else {
+                    alert('Logout failed!');
+                }
+            })
+    }
+}
+</script>
 </body>
 </html>

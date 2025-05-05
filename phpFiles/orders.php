@@ -4,6 +4,20 @@ session_start();
 // Path to your JSON “database”
 $jsonFile = '../Data/PP_DB.json';
 
+//json for users
+$userFile = '../Data/users.json';
+$userdata = file_get_contents($userFile,true);
+$user_dec = json_decode($userdata,true);
+
+//settigns for sepperatign manager options from regular staff
+$userRole = '';
+
+foreach ($user_dec as $user) {
+  if (isset($_SESSION['usernm'])&& $user['username']===$_SESSION['usernm']) {
+    $userRole = $user['role'] ?? '';
+    break;
+  }
+}
 // 1) AJAX endpoint to mark an order “served” (no deletion)
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['order_id'])) {
     $orderId = $_POST['order_id'];
@@ -92,12 +106,18 @@ $displayOrders = array_filter($data["orders"], fn($o)=>
 <body>
   <!-- Sidebar Navigation -->
   <div class="sidebar" id="sidebar">
-    <a href="../htmlfiles/dash.html"><span>Dashboard</span></a>
+    <a href="../phpfiles/dash.php"><span>Dashboard</span></a>
     <a href="../phpFiles/AccountManagement.php"><span>Account Management</span></a>
+    <a href="#"><span>Analytics</span></a>
+    <a href="../phpFiles/Schedule.php"><span>Schedule</span></a>
     <a href="../phpFiles/inventory.php"><span>Inventory</span></a>
+    <a href="../phpFiles/orders.php"><span>Orders</span></a>
+    <?php if ($userRole === 'manager'): ?>
+    <a href="../phpFiles/StaffManagement.php"><span>Staff Management</span></a>
+    <a href="../phpFiles/scheduleManager.php"><span>Schedule Management</span></a>
     <a href="../phpFiles/manage_reservations.php"><span>Reservations</span></a>
-    <a href="../phpFiles/orders.php" class="active"><span>Orders</span></a>
-    <a href="../phpFiles/previousOrders.php"><span>Previous Orders</span></a>
+    <?php endif; ?>
+    <a href="../phpFiles/PreviousOrders.php"><span>Previous Orders</span></a>
   </div>
 
   <div class="main" id="mainContent">
@@ -219,5 +239,22 @@ $displayOrders = array_filter($data["orders"], fn($o)=>
     }
   </script>
   <script src="../htmlFiles/orders.js"></script>
+  <!--logout script-->
+<script>
+function confirmLogout() {
+    if (confirm("Are you sure you want to log out?")) {
+        //  make a fetch request to logout.php
+        fetch('logout.php')
+            .then(response => {
+                if (response.ok) {
+                    // you can redirect after a successful fetch
+                    window.location.href = "../htmlfiles/login.html";
+                } else {
+                    alert('Logout failed!');
+                }
+            })
+    }
+}
+</script>
 </body>
 </html>

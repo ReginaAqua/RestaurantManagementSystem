@@ -1,71 +1,98 @@
 <?php
 session_start(); // cookies passing
 
+/*$_SESSION['usernm']="banana"; THIS IS FOR DEBUGGING THE FEEDBACK MESSAGES*/
+
+$success = ''; //feedback messages
+$error = ''; //feedback messages
+
 // File paths
 $jsonFile = __DIR__ . '/../Data/PP_DB.json';
 $usersFile = __DIR__ . '/../Data/users.json';
 
-// Create files if missing
-if (!file_exists($jsonFile)) {
-    file_put_contents($jsonFile, json_encode(new stdClass(), JSON_PRETTY_PRINT));
-}
-if (!file_exists($usersFile)) {
-    file_put_contents($usersFile, json_encode([]));
-}
+// Load data properly
+$jsonData = file_get_contents($jsonFile);
+$usersData = file_get_contents($usersFile);
+$json_dec = json_decode($jsonData, true);
+$user_dec = json_decode($usersData, true);
 
-// Load data
-$jsonData = json_decode(file_get_contents($jsonFile), true);
-$usersData = json_decode(file_get_contents($usersFile), true);
+//settigns for sepperatign manager options from regular staff
+$userRole = '';
+
+foreach ($user_dec as $user) {
+  if (isset($_SESSION['usernm'])&& $user['username']===$_SESSION['usernm']) {
+    $userRole = $user['role'] ?? '';
+    break;
+  }
+}
 
 // Safeguards
-if (!is_array($jsonData)) $jsonData = [];
-if (!isset($jsonData['schedule_req'])) $jsonData['schedule_req'] = [];
-if (!isset($jsonData['schedule'])) {
-    $jsonData['schedule'] = [
+if (!is_array($json_dec)) $json_dec = [];
+if (!isset($json_dec['schedule_req'])) $json_dec['schedule_req'] = [];
+if (!isset($json_dec['schedule'])) {
+    $json_dec['schedule'] = [
         'Sunday' => [], 'Monday' => [], 'Tuesday' => [],
         'Wednesday' => [], 'Thursday' => [], 'Friday' => [], 'Saturday' => []
     ];
 }
 
-// Handle request form
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['request_text'])) {
-    $requestText = trim($_POST['request_text']);
-    if (!empty($requestText)) {
-        if (isset($_SESSION['usernm'])) {
-            $loggedInUsername = $_SESSION['usernm'];
+//settings for top bar to work and read your name 
+$loggedInUsername = $_SESSION['usernm'] ?? ''; // fallback if not logged in
+$displayName = '';
 
-            // Find user in users.json
-            $foundUser = null;
-            foreach ($usersData as $user) {
-                if (isset($user['username']) && $user['username'] === $loggedInUsername) {
-                    $foundUser = $user;
-                    break;
-                }
-            }
-
-            if ($foundUser !== null) {
-                // Insert under username key
-                if (!isset($jsonData['schedule_req'][$loggedInUsername])) {
-                    $jsonData['schedule_req'][$loggedInUsername] = [];
-                }
-                $jsonData['schedule_req'][$loggedInUsername][] = $requestText;
-
-                // Save
-                file_put_contents($jsonFile, json_encode($jsonData, JSON_PRETTY_PRINT));
-                $successMessage = "✅ Request saved successfully!";
-            } else {
-                $errorMessage = "⚠️ User not found.";
-            }
-        } else {
-            $errorMessage = "⚠️ No user logged in.";
-        }
-    } else {
-        $errorMessage = "⚠️ Request cannot be empty.";
-    }
+foreach ($user_dec as $user) {
+  if ($user['username'] === $loggedInUsername) {
+    // You can show full name or just username
+    $displayName = htmlspecialchars($user['name'] . ' ' . $user['surname']);
+    break;
+  }
 }
 
-// Always save updated structure
-file_put_contents($jsonFile, json_encode($jsonData, JSON_PRETTY_PRINT));
+
+// Handle request saving
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SESSION['usernm'])) {
+    $requestString = $_POST['request_text'];
+    if (strlen($requestString) > 300) {
+        $error = "Your request is too long. Please limit it to 300 characters."; //word limit for request sumbition
+    } else {
+            $currentDate = date('Y-m-d');
+            $name=null;
+            $found=false;
+            if (isset($_SESSION['usernm'])) {
+                foreach ($user_dec as $user) {
+                    if ($_SESSION['usernm']===$user['username']) {
+                        $name= $user['name'] . " " . $user['surname'];
+                        $found=true;
+                        break;
+                    }
+                }
+                if (!isset($json_dec['schedule_req'][$name]) && $found===true) {
+                    $json_dec['schedule_req'][$name] = [];
+                }
+                if (!isset($json_dec['schedule_req'][$name][$currentDate]) && $found===true) {
+                    $json_dec['schedule_req'][$name][$currentDate] = [];
+                }
+                if($found===true){
+                $json_dec['schedule_req'][$name][$currentDate][] = [
+                    'request' => $requestString,
+                    'status' => null
+                ];
+                $success = "Request saved successfully!";
+            }
+            else if($found===false)
+            {
+                $error="User not found. Weird... how did you get on this site.";
+            }
+            }
+            else if (!isset($_SESSION['usernm']))
+            {
+                $error="User not logged in. Please log in";
+            }
+        }
+}
+// save updated structure
+$json_encoded = json_encode($json_dec, JSON_PRETTY_PRINT);
+file_put_contents($jsonFile, $json_encoded);
 
 // Calendar setup
 $month = isset($_GET['month']) ? (int)$_GET['month'] : date('n');
@@ -84,7 +111,7 @@ $firstDayOfMonth = mktime(0, 0, 0, $month, 1, $year);
 $numberDays = date('t', $firstDayOfMonth);
 $monthName = date('F', $firstDayOfMonth);
 
-$thisToday = new DateTime(); // today's full date
+$thisToday = new DateTime();
 $thisMonth = (int)date('n');
 $thisYear = (int)date('Y');
 
@@ -101,6 +128,27 @@ if ($nextMonth > 12) {
     $nextMonth = 1;
     $nextYear++;
 }
+
+$fullName = '';
+$isCookie=null;
+$exist=null;
+    if (isset($_SESSION['usernm'])) {
+        $isCookie=true;
+        $exist=null;
+        foreach ($user_dec as $user) {
+            if ($_SESSION['usernm'] === $user['username']) {
+                $fullName = $user['name'] . " " . $user['surname'];
+                $exist=true;
+                break;
+            }
+            else {
+                $exist=FALSE;
+            }
+        }
+    }
+    else if (!isset($_SESSION['usernm'])){
+        $isCookie=false;
+    }
 ?>
 
 <!DOCTYPE html>
@@ -109,108 +157,119 @@ if ($nextMonth > 12) {
     <meta charset="UTF-8">
     <title><?php echo "$monthName $year Calendar"; ?></title>
     <link rel="stylesheet" href="../cssFiles/schedule.css">
+    <link rel="stylesheet" href="../cssFiles/dash.css">
 </head>
 <body>
+    <div class="main">
 
-<?php if (!empty($successMessage)) { echo "<p style='color: green;'>$successMessage</p>"; } ?>
-<?php if (!empty($errorMessage)) { echo "<p style='color: red;'>$errorMessage</p>"; } ?>
+        <?php if (!empty($success)) { echo "<p style='color: green;'>$success</p>"; } ?>
+        <?php if (!empty($error)) { echo "<p style='color: red;'>$error</p>"; } ?>
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <button class="toggle-btn" id="toggleSidebar">&#9776;</button>
+            <div class="profile" id="profileBtn">
+                <span class="profile-name"><?php echo $displayName; ?></span>
+                <div class="dropdown" id="profileDropdown">
+                <a href="../htmlFiles/login.html">Log Out</a>
+                </div>
+            </div>
+            </div>
 
-<div class="calendar-container">
-    <div class="calendar-nav">
-        <a href="?month=<?php echo $prevMonth; ?>&year=<?php echo $prevYear; ?>">&lt; Prev</a>
-        <h2><?php echo "$monthName $year"; ?></h2>
-        <a href="?month=<?php echo $nextMonth; ?>&year=<?php echo $nextYear; ?>">Next &gt;</a>
-    </div>
-    <table class="calendar">
-        <tr>
-            <?php foreach ($daysOfWeek as $day): ?>
-                <th><?php echo $day; ?></th>
-            <?php endforeach; ?>
-        </tr>
-        <tr>
-            <?php
-            // Date range: today to today + 27 days
-            $startDate = new DateTime();
-            $endDate = (clone $startDate)->modify('+27 days');
+        <div class="layout-wrapper">
+        <!-- Sidebar Navigation -->
+        <div class="sidebar" id="sidebar">
+            <a href="../phpfiles/dash.php"><span>Dashboard</span></a>
+            <a href="../phpFiles/AccountManagement.php"><span>Account Management</span></a>
+            <a href=""><span>Analytics</span></a>
+            <a href="../phpFiles/Schedule.php"><span>Schedule</span></a>
+            <a href="../phpFiles/inventory.php"><span>Inventory</span></a>
+            <a href="../phpFiles/orders.php"><span>Orders</span></a>
+            <?php if ($userRole === 'manager'): ?>
+            <a href="../phpFiles/StaffManagement.php"><span>Staff Management</span></a>
+            <a href="../phpFiles/scheduleManager.php"><span>Schedule Management</span></a>
+            <a href="../phpFiles/manage_reservations.php"><span>Reservations</span></a>
+            <?php endif;?>
+            <a href="../phpFiles/PreviousOrders.php"><span>Previous Orders</span></a>
+        </div>
 
-            $currentDay = 1;
-            $dayOfWeek = date('w', $firstDayOfMonth);
+        <!-- Main Content -->
+        <div class="main-content" id="mainContent">
+            <!-- Calendar Container -->
+            <div class="calendar-container" style="margin: 30px; max-width: 1000px;">
+            <div class="calendar-nav">
+                <a href="?month=<?php echo $prevMonth; ?>&year=<?php echo $prevYear; ?>">&lt; Prev</a>
+                <h2><?php echo "$monthName $year"; ?></h2>
+                <a href="?month=<?php echo $nextMonth; ?>&year=<?php echo $nextYear; ?>">Next &gt;</a>
+            </div>
 
-            for ($i = 0; $i < $dayOfWeek; $i++) {
-                echo "<td></td>";
-            }
+            <table class="calendar">
+                <tr>
+                <?php foreach ($daysOfWeek as $day): ?>
+                    <th><?php echo $day; ?></th>
+                <?php endforeach; ?>
+                </tr>
+                <tr>
+                <?php
+                $startDate = new DateTime();
+                $endDate = (clone $startDate)->modify('+30 days');
+                $currentDay = 1;
+                $dayOfWeek = date('w', $firstDayOfMonth);
 
-            while ($currentDay <= $numberDays) {
-                if ($dayOfWeek == 7) {
+                for ($i = 0; $i < $dayOfWeek; $i++) echo "<td></td>";
+
+                while ($currentDay <= $numberDays) {
+                    if ($dayOfWeek == 7) {
                     $dayOfWeek = 0;
                     echo "</tr><tr>";
-                }
+                    }
 
-                $cellDate = new DateTime("$year-$month-$currentDay");
-                $isToday = ($cellDate->format('Y-m-d') == $thisToday->format('Y-m-d'));
-                $class = $isToday ? 'today' : '';
+                    $cellDate = new DateTime("$year-$month-$currentDay");
+                    $isToday = ($cellDate->format('Y-m-d') == $thisToday->format('Y-m-d'));
+                    $class = $isToday ? 'today' : '';
+                    $dayName = $daysOfWeek[$dayOfWeek];
+                    $events = $cellDate >= $startDate && $cellDate <= $endDate ? ($json_dec['schedule'][$dayName] ?? []) : [];
 
-                $dayName = $daysOfWeek[$dayOfWeek];
-                $events = [];
-
-                if ($cellDate >= $startDate && $cellDate <= $endDate) {
-                    $events = $jsonData['schedule'][$dayName] ?? [];
-                }
-
-                $eventHtml = '';
-                foreach ($events as $event) {
+                    $eventHtml = '';
+                    foreach ($events as $event) {
                     $eventHtml .= "<div class='event'>{$event['name']}</div>";
+                    }
+
+                    $hasShifts = count($events) > 0 ? 'has-shift' : '';
+                    $fullDate = $cellDate->format('Y-m-d');
+
+                    echo "<td class='$class calendar-cell $hasShifts' data-date='$fullDate'>
+                            <div class='day-number'>$currentDay</div>
+                            $eventHtml
+                        </td>";
+
+                    $currentDay++;
+                    $dayOfWeek++;
                 }
 
-                $hasShifts = count($events) > 0 ? 'has-shift' : '';
-                $fullDate = $cellDate->format('Y-m-d');
+                while ($dayOfWeek < 7) {
+                    echo "<td></td>";
+                    $dayOfWeek++;
+                }
+                ?>
+                </tr>
+            </table>
 
-                echo "<td class='$class calendar-cell $hasShifts' data-date='$fullDate'>
-                        <div class='day-number'>$currentDay</div>
-                        $eventHtml
-                    </td>";
-
-                $currentDay++;
-                $dayOfWeek++;
-            }
-
-            while ($dayOfWeek < 7) {
-                echo "<td></td>";
-                $dayOfWeek++;
-            }
-            ?>
-        </tr>
-    </table>
-
-    <button id="submitRequestBtn" onclick="showRequestBox()">Submit Request</button>
-
-    <form id="requestForm" method="POST" style="display: none; margin-top: 20px;">
-        <h3>Please write your request:</h3>
-        <textarea name="request_text" rows="4" cols="50" required></textarea><br>
-        <button type="submit">Send Request</button>
-    </form>
-
-    <script>
-    function showRequestBox() {
-        document.getElementById('requestForm').style.display = 'block';
-    }
-    </script>
-
-</div>
-
-<!-- Modal -->
-<div id="modal" class="modal">
-    <div class="modal-content">
-        <span class="close-btn">&times;</span>
-        <h3><strong>Name:</strong> <span id="modal-name">---</span></h3>
-        <p><strong>Shift Start:</strong> <span id="modal-start">--:--</span></p>
-        <p><strong>Shift End:</strong> <span id="modal-end">--:--</span></p>
-    </div>
+            <div class="button-group" style="margin-top: 20px;">
+                <button id="submitRequestBtn" type="button" onclick="showRequestBox()">Submit Request</button>
+                <button id="viewRequestsBtn" type="button">View Requests</button>
+            </div>
+        </div>
+    </div>    
 </div>
 
 <script>
-const scheduleData = <?php echo json_encode($jsonData['schedule']); ?>;
-
+function showRequestBox() {
+    document.getElementById('requestForm').style.display = 'block';
+}
+</script>
+<!--script for modal shift-->
+<script>
+const scheduleData = <?php echo json_encode($json_dec['schedule']); ?>;
 document.addEventListener('DOMContentLoaded', function () {
     const cells = document.querySelectorAll('.calendar-cell.has-shift');
     const modal = document.getElementById('modal');
@@ -246,6 +305,118 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 </script>
+<!--script for modal request-->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const requestModal = document.getElementById('requestModal');
+    const viewRequestsModal = document.getElementById('viewRequestsModal');
 
+    // Open request modal when button clicked
+    document.getElementById('submitRequestBtn').addEventListener('click', function () {
+        requestModal.style.display = 'block';
+    });
+
+    // Close request modal when cancel button clicked
+    document.getElementById('cancelRequestBtn').addEventListener('click', function () {
+        requestModal.style.display = 'none';
+    });
+
+    //Button to open View Requests Modal
+    document.getElementById('viewRequestsBtn').addEventListener('click', function () {
+        viewRequestsModal.style.display = 'block';
+        loadRequests(); // loads all previous requests when opening
+    });
+    //Button to close View Requests Modal
+    document.getElementById('closeViewRequestsBtn').addEventListener('click', function () {
+        viewRequestsModal.style.display = 'none';
+    });
+    // Also close modal if clicking outside modal content
+    window.addEventListener('click', function(event) {
+        if (event.target == requestModal) {
+            requestModal.style.display = "none";
+        }
+        if (event.target == viewRequestsModal) {
+            viewRequestsModal.style.display = "none";
+        }
+    });
+});
+
+//Function to load previous requests from PHP into the modal
+function loadRequests() {
+    const requestsList = document.getElementById('requestsList');
+    requestsList.innerHTML = '';
+    const scheduleRequests = <?php echo json_encode($json_dec['schedule_req'] ?? []); ?>;
+    const username = "<?php echo isset($_SESSION['usernm']) ? $_SESSION['usernm'] : ''; ?>";
+    const fullName = "<?php echo $fullName; ?>";
+    const exist = <?php echo $exist ? 'true' : 'false'; ?>;
+    const isCookie = <?php echo $isCookie ? 'true' : 'false'; ?>;
+
+    if (fullName && scheduleRequests[fullName]) {
+    let output = '';
+    for (const date in scheduleRequests[fullName]) {
+        output += `<div class="request-card">`;
+        output += `<div class="request-date">${date}</div>`;
+        scheduleRequests[fullName][date].forEach(req => {
+        const statusText = req.status === null ? "Undecided" : (req.status === true ? "Approved" : "Denied");
+        let badgeClass = "undecided-badge"; 
+
+        if (req.status === true) {
+            badgeClass = "approved-badge";
+        } else if (req.status === false) {
+            badgeClass = "denied-badge";
+        }
+
+        output += `- ${req.request} <span class="status-badge ${badgeClass}">${statusText}</span><br>`;
+    });
+        output += `</div>`;
+    }
+    requestsList.innerHTML = output;
+    }
+    if (!exist) {
+    alert("Error: user doesn't exist in the database!");
+    } 
+    if (!isCookie)
+    {
+        alert("Error: Can't view requests. User hasn't logged in properly!");
+    }
+    else if (!fullName || !scheduleRequests[fullName]) {
+        requestsList.innerHTML = "<p>No requests found for your account.</p>";
+    }
+}
+</script>
+<!--Word limit js to notify instantly the user-->
+<script>
+        const textarea = document.getElementById('request_textarea');
+        const charCount = document.getElementById('charCount');
+        const maxLength = 300;
+
+        textarea.addEventListener('input', function() {
+            const currentLength = textarea.value.length;
+            charCount.textContent = (maxLength - currentLength) + " characters remaining";
+
+            if (currentLength >= maxLength) {
+                alert("You have reached the maximum allowed characters (300)!");
+            }
+        });
+    </script>
+<script src="../htmlfiles/dash.js"></script>
+
+<!--logout script-->
+<script>
+function confirmLogout() {
+    if (confirm("Are you sure you want to log out?")) {
+        //  make a fetch request to logout.php
+        fetch('logout.php')
+            .then(response => {
+                if (response.ok) {
+                    // you can redirect after a successful fetch
+                    window.location.href = "../htmlfiles/login.html";
+                } else {
+                    alert('Logout failed!');
+                }
+            })
+    }
+}
+</script>
 </body>
 </html>

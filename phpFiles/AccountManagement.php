@@ -85,6 +85,26 @@ if (file_exists($json)) {
 } else {
     $Rows = "<tr><td colspan='5'>Error: User data file not found.</td></tr>";
 }
+//side bar settigns for sepperatign manager options from regular staff
+$userRole = '';
+
+foreach ($users as $user) {
+  if (isset($_SESSION['usernm'])&& $user['username']===$_SESSION['usernm']) {
+    $userRole = $user['role'] ?? '';
+    break;
+  }
+}
+
+// top bar settings
+$loggedInUsername = $_SESSION['usernm'] ?? '';
+$displayName = '';
+
+foreach ($users as $user) {
+  if ($user['username'] === $loggedInUsername) {
+    $displayName = htmlspecialchars($user['name'] . ' ' . $user['surname']);
+    break;
+  }
+}
 ?>
 
 <!DOCTYPE html>
@@ -97,13 +117,19 @@ if (file_exists($json)) {
     <link rel="stylesheet" href="../cssFiles/dash.css">
 </head>
 <body>
-    <!-- Sidebar Navigation -->
-    <div class="sidebar" id="sidebar">
-    <a href="../htmlfiles/dash.html"><span>Dashboard</span></a>
+      <!-- Sidebar Navigation -->
+  <div class="sidebar" id="sidebar">
+    <a href="../phpfiles/dash.php"><span>Dashboard</span></a>
     <a href="../phpFiles/AccountManagement.php"><span>Account Management</span></a>
+    <a href=""><span>Analytics</span></a>
+    <a href="../phpFiles/Schedule.php"><span>Schedule</span></a>
     <a href="../phpFiles/inventory.php"><span>Inventory</span></a>
-    <a href="../phpFiles/manage_reservations.php"><span>Reservations</span></a>
     <a href="../phpFiles/orders.php"><span>Orders</span></a>
+    <?php if ($userRole === 'manager'): ?>
+    <a href="../phpFiles/StaffManagement.php"><span>Staff Management</span></a>
+    <a href="../phpFiles/scheduleManager.php"><span>Schedule Management</span></a>
+    <a href="../phpFiles/manage_reservations.php"><span>Reservations</span></a>
+    <?php endif;?>
     <a href="../phpFiles/PreviousOrders.php"><span>Previous Orders</span></a>
   </div>
 
@@ -113,7 +139,7 @@ if (file_exists($json)) {
   <div class="top-bar">
     <button class="toggle-btn" id="toggleSidebar">&#9776;</button>
     <div class="profile" id="profileBtn">
-      <span class="profile-name">User Name</span>
+      <span class="profile-name"><?php echo $displayName; ?></span>
       <div class="dropdown" id="profileDropdown">
         <a href="../phpFiles/AccountManagement.php">Account Management</a>
         <a href="../htmlfiles/login.html">Log Out</a>
@@ -140,5 +166,22 @@ if (file_exists($json)) {
 
 <!-- JS file should stay right before </body> -->
 <script src="../htmlfiles/dash.js"></script>
+<!--logout script-->
+<script>
+function confirmLogout() {
+    if (confirm("Are you sure you want to log out?")) {
+        //  make a fetch request to logout.php
+        fetch('logout.php')
+            .then(response => {
+                if (response.ok) {
+                    // you can redirect after a successful fetch
+                    window.location.href = "../htmlfiles/login.html";
+                } else {
+                    alert('Logout failed!');
+                }
+            })
+    }
+}
+</script>
 </body>
 </html>

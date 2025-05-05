@@ -8,7 +8,7 @@
         "email": "anastasiosdrog@hotmail.com",
         "phone": "512521",
         "password": "$2y$10$MQCY\/TGETOPQ3UZWcN3QXukCNWS4ZMQxGO7wSFuQgJQyBwDCc0kau",
-        "role": "Manager",
+        "role": "manager",
         "OTP": "879134"
     },
     {
@@ -36,14 +36,6 @@
         "OTP": null
     },
     {
-        "username": "user_1743855219954",
-        "name": "TETESATETTE",
-        "surname": "TEATEATEATETAA",
-        "email": "TEA@TEAT.COM",
-        "phone": "658756865",
-        "role": "TEATAET"
-    },
-    {
         "username": "od",
         "name": "od",
         "surname": "dr",
@@ -64,6 +56,18 @@
         "phone": "6941231239",
         "password": "$2y$10$R5hk8PlAgqBRu85klmpOreCEKoKmzfZ3zIDbr7mk71hBT7IDCAP5G",
         "role": "waitstaff",
+        "OTP": null
+    },
+    {
+        "username": "test",
+        "user_id": "PE7933920",
+        "name": "test",
+        "surname": "test",
+        "birthdate": "2025-04-30",
+        "email": "test@test.com",
+        "phone": "123456789",
+        "password": "$2y$10$UnNTTWqCbUTiOLygo5KPfOvqrlcZwTt1fzev9dIZqPcE5Vgu0INcG",
+        "role": "customer",
         "OTP": null
     }
 ]

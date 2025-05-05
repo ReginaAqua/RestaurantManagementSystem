@@ -1,293 +1,568 @@
 /* === General Page Styles === */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f2f2f2;
-    text-align: center;
-    padding: 30px;
-}
+    margin: 0;
+    padding: 0;
+    background: #E0F7FA;
+  }
 
+button:focus {
+outline: none;
+box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.5); /* Green glow around */
+}
 /* === Calendar Container === */
 .calendar-container {
-    width: 800px;
-    min-height: 500px;
-    overflow: hidden;
-    display: inline-block;
+    width: 100%;
+    max-width: 1000px;
     background-color: white;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
     padding: 20px;
+    margin: 30px auto;
     box-sizing: border-box;
-}
+    overflow: hidden;
+  }
+
 
 /* === Calendar Navigation === */
 .calendar-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 15px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-bottom: 15px;
 }
 
 .calendar-nav a {
-    padding: 8px 16px;
-    background-color: #4CAF50;
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    font-weight: bold;
-    transition: background-color 0.2s ease;
+padding: 8px 16px;
+background-color: #4CAF50;
+color: white;
+text-decoration: none;
+border-radius: 5px;
+font-weight: bold;
+transition: background-color 0.2s ease;
 }
 
 .calendar-nav a:hover {
-    background-color: #45a049;
+background-color: #45a049;
 }
 
 /* === Calendar Table === */
 h2 {
-    margin: 0;
+margin: 0;
 }
 
 .calendar {
-    border-collapse: collapse;
     width: 100%;
-    height: 100%;
     table-layout: fixed;
-}
+    border-collapse: collapse;
+  }
 
 .calendar th, .calendar td {
-    border: 1px solid #ddd;
-    width: 14.28%;
-    vertical-align: top;
-    overflow: hidden;
-    padding: 5px;
-    box-sizing: border-box;
+border: 1px solid #ddd;
+width: 14.28%;
+vertical-align: top;
+overflow: hidden;
+padding: 5px;
+box-sizing: border-box;
 }
 
 .calendar th {
-    background-color: #4CAF50;
-    color: white;
-    font-size: 14px;
-    height: 40px;
+background-color: #4CAF50;
+color: white;
+font-size: 14px;
+height: 40px;
 }
 
 .calendar td {
-    background-color: #fafafa;
-    font-size: 13px;
-    word-wrap: break-word;
-    text-align: left;
-    height: 80px;
-    min-height: 80px;
+background-color: #fafafa;
+font-size: 13px;
+word-wrap: break-word;
+text-align: left;
+height: 80px;
+min-height: 80px;
 }
 
 /* === Special Calendar Cell Styling === */
 .calendar-cell {
-    cursor: default;
+cursor: default;
 }
 
 .calendar-cell.has-shift {
-    cursor: pointer;
+cursor: pointer;
 }
 
 .calendar-cell.has-shift:hover {
-    background-color: #e6ffe6;
+background-color: #e6ffe6;
 }
 
 .calendar td.today {
-    background-color: #ffd700;
-    font-weight: bold;
-    border: 2px solid #ff9800;
+background-color: #ffd700;
+font-weight: bold;
+border: 2px solid #ff9800;
 }
 
 /* === Day Number and Event Tags === */
 .day-number {
-    font-weight: bold;
-    margin-bottom: 5px;
+font-weight: bold;
+margin-bottom: 5px;
 }
 
 .event {
-    background: #e0f7fa;
-    font-size: 11px;
-    color: #333;
-    margin: 2px 0;
-    padding: 2px 4px;
-    border-radius: 4px;
-    max-height: 40px;
-    overflow: hidden;
+background: #e0f7fa;
+font-size: 11px;
+color: #333;
+margin: 2px 0;
+padding: 2px 4px;
+border-radius: 4px;
+max-height: 40px;
+overflow: hidden;
 }
 
 /* === Modal (Shift Details Popup) === */
 .modal {
-    display: none;
-    position: fixed;
-    z-index: 999;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0,0,0,0.5);
-    padding-top: 100px;
+display: none;
+position: fixed;
+z-index: 999;
+left: 0;
+top: 0;
+width: 100%;
+height: 100%;
+overflow: auto;
+background-color: rgba(0,0,0,0.5);
+padding-top: 100px;
 }
 
 .modal-content {
-    background-color: #ffffff;
-    margin: auto;
-    padding: 20px 30px;
-    border: 1px solid #888;
-    width: 400px;
-    max-width: 90%;
-    border-radius: 8px;
-    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-    font-family: Arial, sans-serif;
-    animation: fadeIn 0.3s ease;
+background-color: #ffffff;
+margin: auto;
+padding: 20px 30px;
+border: 1px solid #888;
+width: 400px;
+max-width: 90%;
+border-radius: 8px;
+box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+font-family: Arial, sans-serif;
+animation: fadeIn 0.3s ease;
 }
 
 .modal-content h3 {
-    margin-top: 0;
+margin-top: 0;
 }
 
 .modal-content p {
-    margin: 8px 0;
-    font-size: 14px;
-    line-height: 1.5;
+margin: 8px 0;
+font-size: 14px;
+line-height: 1.5;
 }
 
 .close-btn {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-    cursor: pointer;
-    margin-top: -10px;
+color: #aaa;
+float: right;
+font-size: 28px;
+font-weight: bold;
+cursor: pointer;
+margin-top: -10px;
 }
 
 .close-btn:hover,
 .close-btn:focus {
-    color: #000;
-    text-decoration: none;
+color: #000;
+text-decoration: none;
 }
 
 /* === Modal Name Empty Style === */
 #modal-name:empty {
-    color: #999;
-    font-style: italic;
+color: #999;
+font-style: italic;
 }
 
 /* === Submit Request Button === */
 #submitRequestBtn {
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    font-weight: bold;
-    font-size: 16px;
-    cursor: pointer;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+margin-top: 20px;
+padding: 10px 20px;
+background-color: #4CAF50;
+color: white;
+border: none;
+border-radius: 4px;
+font-weight: bold;
+font-size: 16px;
+cursor: pointer;
+display: block;
+margin-left: auto;
+margin-right: auto;
 }
 
-#submitRequestBtn:hover {
-    background-color: #45a049;
+#submitRequestBtn:hover,#submitRequestBtn:focus {
+background-color: #45a049;
+transform: scale(1.05);
 }
 
 /* === Submit Request Form === */
 #requestForm {
-    display: none;
-    margin-top: 20px;
-    padding: 20px;
-    border: 1px solid #ccc;
-    background-color: #fafafa;
-    border-radius: 8px;
-    width: 100%;
-    max-width: 400px;
-    box-sizing: border-box;
-    margin-left: auto;
-    margin-right: auto;
+display: none;
+margin-top: 20px;
+padding: 20px;
+border: 1px solid #ccc;
+background-color: #fafafa;
+border-radius: 8px;
+width: 100%;
+max-width: 400px;
+box-sizing: border-box;
+margin-left: auto;
+margin-right: auto;
 }
 
 #requestForm h3 {
-    margin-top: 0;
+margin-top: 0;
 }
 
 #requestForm textarea {
-    width: 100%;
-    padding: 10px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-    resize: vertical;
-    min-height: 100px;
+width: 100%;
+padding: 10px;
+border-radius: 4px;
+border: 1px solid #ccc;
+resize: vertical;
+min-height: 100px;
 }
 
 #requestForm button {
-    margin-top: 15px;
-    padding: 10px 20px;
-    background-color: #4CAF48;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 4px;
-    font-weight: bold;
-    font-size: 14px;
+margin-top: 15px;
+padding: 10px 20px;
+background-color: #4CAF48;
+color: white;
+border: none;
+cursor: pointer;
+border-radius: 4px;
+font-weight: bold;
+font-size: 14px;
 }
 
-#requestForm button:hover {
-    background-color: #45a047;
+#requestForm button:hover,#requestForm button:focus {
+background-color: #45a047;
+transform: scale(1.05);
 }
 
 /* === Cool Fade In Animation for Modals === */
 @keyframes fadeIn {
-    from { opacity: 0; transform: scale(0.95); }
-    to { opacity: 1; transform: scale(1); }
+from { opacity: 0; transform: scale(0.95); }
+to { opacity: 1; transform: scale(1); }
 }
 
 /* === View Requests Button === */
 #viewRequestsBtn {
-    margin-top: 20px;
-    padding: 12px 24px;
-    background-color: #28a745;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-weight: bold;
-    font-size: 18px;
-    cursor: pointer;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    transition: background-color 0.3s ease;
+margin-top: 20px;
+padding: 12px 24px;
+background-color: #28a745;
+color: white;
+border: none;
+border-radius: 5px;
+font-weight: bold;
+font-size: 18px;
+cursor: pointer;
+display: block;
+margin-left: auto;
+margin-right: auto;
+transition: background-color 0.3s ease;
 }
 
-#viewRequestsBtn:hover {
-    background-color: #218838;
+#viewRequestsBtn:hover,#viewRequestsBtn:focus {
+background-color: #218838;
+transform: scale(1.05);
 }
 
-/* === Username Toggle === */
+/* === Username Toggle (Optional future feature) === */
 .username {
-    font-weight: bold;
-    font-size: 18px;
-    margin-top: 15px;
-    color: #333;
-    cursor: pointer;
-    user-select: none;
-    transition: color 0.2s ease;
+font-weight: bold;
+font-size: 18px;
+margin-top: 15px;
+color: #333;
+cursor: pointer;
+user-select: none;
+transition: color 0.2s ease;
 }
 
 .username:hover {
-    color: #007BFF;
+color: #007BFF;
 }
 
 /* === Request Items Hidden Initially === */
 .request-items {
-    margin-left: 20px;
-    margin-top: 5px;
-    display: none;
+margin-left: 20px;
+margin-top: 5px;
+display: none;
 }
 
-/* === Each Request Text === */
+/* === Each Request Text (for small items under username) === */
 .request-item {
-    margin-top: 5px;
-    font-size: 14px;
-    color: #555;
+margin-top: 5px;
+font-size: 14px;
+color: #555;
+word-break: break-word;
 }
+
+/* === 🔥 New for Viewing Past Requests Modal === */
+#requestsList {
+margin-top: 20px;
+}
+
+/* Each Request Card */
+.request-card {
+background-color: white;
+padding: 15px;
+margin-bottom: 10px;
+border-radius: 8px;
+box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+font-size: 14px;
+text-align: left;
+word-break: break-word;
+}
+
+/* Date Title inside the Card */
+.request-date {
+font-weight: bold;
+margin-bottom: 8px;
+color: #333;
+}
+.button-group {
+display: flex;
+justify-content: center;
+gap: 15px; 
+margin-top: 20px;
+}
+
+.button-group button {
+margin: 0; 
+}
+
+#closeViewRequestsBtn {
+display: inline-block;
+margin-top: 10px;
+padding: 10px 20px;
+background-color: #28a745;
+color: white;
+font-size: 18px;
+font-weight: bold;
+border: none;
+border-radius: 8px;
+cursor: pointer;
+transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#closeViewRequestsBtn:hover,
+#closeViewRequestsBtn:focus {
+background-color: #218838;
+transform: scale(1.05);
+}
+.status-badge {
+display: inline-block;
+padding: 2px 8px;
+margin-left: 8px;
+border-radius: 12px;
+background-color: #eee;
+color: #333;
+font-size: 12px;
+font-weight: bold;
+}
+.request-item.approved {
+border: 2px solid #4CAF50; /* Green border */
+background-color: #e8f5e9; /* Light green background */
+}
+
+.request-item.denied {
+border: 2px solid #f44336; /* Red border */
+background-color: #ffebee; /* Light red background */
+}
+.status-text {
+margin-left: 10px;
+font-weight: bold;
+font-size: 14px;
+}
+
+.approved-text {
+color: #4CAF50; /* Green color */
+}
+
+.denied-text {
+color: #f44336; /* Red color */
+}
+.status-badge {
+display: inline-block;
+padding: 2px 8px;
+margin-left: 8px;
+border-radius: 12px;
+font-size: 12px;
+font-weight: bold;
+}
+
+/* Colors for each status */
+.approved-badge {
+background-color: #e8f5e9;
+color: #4CAF50;
+border: 1px solid #4CAF50;
+}
+
+.denied-badge {
+background-color: #ffebee;
+color: #f44336;
+border: 1px solid #f44336;
+}
+
+.undecided-badge {
+background-color: #f0f0f0;
+color: #666;
+border: 1px solid #ccc;
+}
+
+.shift-day {
+display: flex;
+align-items: center;
+justify-content: space-between;
+background-color: #f5f5f5;
+padding: 6px 12px;
+font-weight: bold;
+border: 1px solid #ccc;
+margin-top: 8px;
+cursor: pointer;
+position: relative;
+}
+
+.shift-day:hover {
+color: #007BFF;
+}
+
+.shift-items {
+margin-left: 20px;
+margin-top: 5px;
+display: none;
+}
+
+.shift-item {
+margin-top: 5px;
+font-size: 14px;
+color: #555;
+}
+
+#viewShiftsBtn {
+margin-top: 20px;
+padding: 12px 24px;
+background-color: #28a745; /* Nice blue */
+color: white;
+border: none;
+border-radius: 5px;
+font-weight: bold;
+font-size: 18px;
+cursor: pointer;
+display: inline-block;
+transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#viewShiftsBtn:hover,
+#viewShiftsBtn:focus {
+background-color: #218838;
+transform: scale(1.05);
+}
+.edit-btn {
+margin-left: 10px;
+padding: 2px 8px;
+font-size: 12px;
+cursor: pointer;
+background-color: #ffc107;
+border: none;
+border-radius: 4px;
+font-weight: bold;
+position: relative;
+}
+
+.edit-btn:hover {
+background-color: #e0a800;
+}
+.delete-btn {
+background-color: #dc3545;
+color: white;
+font-weight: bold;
+border: none;
+border-radius: 4px;
+padding: 4px 8px;
+margin-left: 8px;
+cursor: pointer;
+position: relative;
+}
+.delete-btn:hover {
+background-color: #c82333;
+}
+.Add {
+width: 24px;
+height: 24px;
+border-radius: 50%;
+background-color: #e7e7e7;
+color: black;
+font-size: 16px;
+line-height: 24px;
+text-align: center;
+border: none;
+cursor: pointer;
+margin-left: 10px;
+flex-shrink: 0;
+transition: background-color 0.3s ease;
+}
+
+.Add:hover {
+background-color: #bcbcbc;
+}
+
+.add-shift-form {
+margin: 8px 0;
+display: flex;
+gap: 8px;
+align-items: center;
+}
+
+.add-shift-form input {
+padding: 4px;
+font-size: 0.9em;
+}
+
+.add-shift-form button {
+padding: 4px 10px;
+background-color: #0288D1;
+color: white;
+border: none;
+cursor: pointer;
+}
+
+.layout-wrapper {
+    display: flex;
+    margin-top: 60px; /* Accounts for fixed top bar */
+  }
+
+.sidebar {
+position: fixed;
+top: 0;
+left: 0;
+width: 200px;
+height: 100vh;
+background-color: #0288D1;
+color: white;
+overflow-y: auto;
+padding-top: 60px; /* Push content below top bar */
+z-index: 999;
+}
+.main-content {
+    margin-left: 200px;
+    padding: 90px 30px 30px 30px; /* push content below top-bar */
+    box-sizing: border-box;
+  }
+
+  .top-bar {
+    height: 60px;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    border-bottom: 1px solid #ddd;
+    position: relative;
+    right:0;
+  }
+  
+

@@ -1,11 +1,37 @@
 <?php
-
+session_start();
 require_once 'dompdf/autoload.inc.php'; // Make sure you have installed Dompdf!
 use Dompdf\Dompdf;
 
 // --- SETTINGS ---
 $jsonFile = '../Data/PP_DB.json';
 $managementEmail = 'manager@example.com'; // Update to your real management email
+
+//json for users
+$userFile = '../Data/users.json';
+$userdata = file_get_contents($userFile,true);
+$user_dec = json_decode($userdata,true);
+
+//settigns for sepperatign manager options from regular staff
+$userRole = '';
+
+foreach ($user_dec as $user) {
+  if (isset($_SESSION['usernm'])&& $user['username']===$_SESSION['usernm']) {
+    $userRole = $user['role'] ?? '';
+    break;
+  }
+}
+
+// top bar settings
+$loggedInUsername = $_SESSION['usernm'] ?? '';
+$displayName = '';
+
+foreach ($user_dec as $user) {
+  if ($user['username'] === $loggedInUsername) {
+    $displayName = htmlspecialchars($user['name'] . ' ' . $user['surname']);
+    break;
+  }
+}
 
 // --- HANDLE POST REQUEST ---
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -88,8 +114,35 @@ $inventory = $db['inventory'] ?? [];
     <meta charset="UTF-8">
     <title>Inventory Management</title>
     <link rel="stylesheet" href="../cssFiles/inventory.css">
+    <link rel="stylesheet" href="../cssfiles/dash.css"> <!-- Use your dashboard layout CSS -->
 </head>
 <body>
+<div class="sidebar" id="sidebar">
+  <a href="../phpfiles/dash.php"><span>Dashboard</span></a>
+  <a href="../phpFiles/AccountManagement.php"><span>Account Management</span></a>
+  <a href=""><span>Analytics</span></a>
+  <a href="../phpFiles/Schedule.php"><span>Schedule</span></a>
+  <a href="../phpFiles/inventory.php"><span>Inventory</span></a>
+  <a href="../phpFiles/orders.php"><span>Orders</span></a>
+  <?php if ($userRole === 'manager'): ?>
+  <a href="../phpFiles/StaffManagement.php"><span>Staff Management</span></a>
+  <a href="../phpFiles/scheduleManager.php"><span>Schedule Management</span></a>
+  <a href="../phpFiles/manage_reservations.php"><span>Reservations</span></a>
+  <?php endif;?>
+  <a href="../phpFiles/PreviousOrders.php"><span>Previous Orders</span></a>
+</div>
+
+<div class="main" id="mainContent">
+  <div class="top-bar">
+    <button class="toggle-btn" id="toggleSidebar">&#9776;</button>
+    <div class="profile" id="profileBtn">
+      <span class="profile-name"><?php echo $displayName; ?></span>
+      <div class="dropdown" id="profileDropdown">
+      <a href="../htmlFiles/login.html">Log Out</a>
+      </div>
+    </div>
+  </div>
+  
 <header>
 <div class="header-container">
         <button class="add-item-button" onclick="openAddForm()">Add Item</button>
@@ -144,3 +197,25 @@ function closeAddForm() {
     document.getElementById('addItemForm').style.display = 'none';
 }
 </script>
+ <script src="../htmlfiles/dash.js"></script>
+</div> <!-- end of .main -->
+<script src="../htmlfiles/dash.js"></script>
+<!--logout script-->
+<script>
+function confirmLogout() {
+    if (confirm("Are you sure you want to log out?")) {
+        //  make a fetch request to logout.php
+        fetch('logout.php')
+            .then(response => {
+                if (response.ok) {
+                    // you can redirect after a successful fetch
+                    window.location.href = "../htmlfiles/login.html";
+                } else {
+                    alert('Logout failed!');
+                }
+            })
+    }
+}
+</script>
+</body>
+</html>
