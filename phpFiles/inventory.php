@@ -1,55 +1,57 @@
 <?php
 session_start();
-require_once 'dompdf/autoload.inc.php'; // Make sure you have installed Dompdf!
+require 'dompdf/autoload.inc.php';
 use Dompdf\Dompdf;
 
-// --- SETTINGS ---
+require '../vendor/autoload.php';
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
 $jsonFile = '../Data/PP_DB.json';
-$managementEmail = 'manager@example.com'; // Update to your real management email
+$managementEmail = 'oddandv@gmail.com';
 
-//json for users
-$userFile = '../Data/users.json';
-$userdata = file_get_contents($userFile,true);
-$user_dec = json_decode($userdata,true);
-
-//settigns for sepperatign manager options from regular staff
-$userRole = '';
-
-foreach ($user_dec as $user) {
-  if (isset($_SESSION['usernm'])&& $user['username']===$_SESSION['usernm']) {
-    $userRole = $user['role'] ?? '';
-    break;
-  }
+if (!file_exists($jsonFile)) {
+    die('Database not found.');
 }
 
-// top bar settings
-$loggedInUsername = $_SESSION['usernm'] ?? '';
-$displayName = '';
+$db = json_decode(file_get_contents($jsonFile), true);
+$inventory = $db['inventory'] ?? [];
+$today = date('Y-m-d');
 
-foreach ($user_dec as $user) {
-  if ($user['username'] === $loggedInUsername) {
-    $displayName = htmlspecialchars($user['name'] . ' ' . $user['surname']);
-    break;
-  }
+// --- Handle Snapshot Creation ---
+if (!isset($db['inventory_snapshot']) || $db['inventory_snapshot']['date'] !== $today) {
+    $db['inventory_snapshot'] = [
+        'date' => $today,
+        'inventory' => []
+    ];
+    foreach ($inventory as $item) {
+        $db['inventory_snapshot']['inventory'][$item['item_name']] = $item['quantity'];
+    }
+    file_put_contents($jsonFile, json_encode($db, JSON_PRETTY_PRINT));
 }
 
-// --- HANDLE POST REQUEST ---
+// --- Handle POST Requests ---
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $db = json_decode(file_get_contents($jsonFile), true);
 
     if (isset($_POST['generate_report'])) {
-        // Generate PDF Report
-        $inventory = $db['inventory'] ?? [];
-
-        $html = "<h1>Daily Inventory Report</h1><table border='1' cellpadding='5' cellspacing='0'><tr><th>Item Name</th><th>Quantity</th><th>Reorder Level</th><th>Supplier Info</th></tr>";
+        // Generate Daily Report
+        $snapshot = $db['inventory_snapshot'];
+        $html = "<h1>Daily Inventory Usage Report ({$today})</h1>";
+        $html .= "<table border='1' cellpadding='5'>
+                    <tr><th>Item Name</th><th>Starting Quantity (00:00)</th><th>Current Quantity</th><th>Consumed Today</th></tr>";
 
         foreach ($inventory as $item) {
+            $startQty = $snapshot['inventory'][$item['item_name']] ?? 0;
+            $currentQty = $item['quantity'];
+            $consumed = $startQty - $currentQty;
+            $consumed = $consumed < 0 ? 0 : $consumed;
+
             $html .= "<tr>
-                <td>{$item['item_name']}</td>
-                <td>{$item['quantity']}</td>
-                <td>{$item['reorder_level']}</td>
-                <td>{$item['supplier_info']}</td>
-            </tr>";
+                        <td>{$item['item_name']}</td>
+                        <td>{$startQty}</td>
+                        <td>{$currentQty}</td>
+                        <td>{$consumed}</td>
+                      </tr>";
         }
 
         $html .= "</table>";
@@ -60,53 +62,97 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $dompdf->render();
         $dompdf->stream('Daily_Inventory_Report.pdf');
         exit;
-    } elseif (isset($_POST['add_item'])) {
-        // Adding a new item
+    }
+
+    if (isset($_POST['add_item'])) {
+        // Add Item
         $newItem = [
             "item_name" => $_POST['item_name'],
             "quantity" => floatval($_POST['quantity']),
             "reorder_level" => intval($_POST['reorder_level']),
             "supplier_info" => $_POST['supplier_info']
         ];
-        if (!isset($db['inventory'])) {
-            $db['inventory'] = [];
-        }
         $db['inventory'][] = $newItem;
         file_put_contents($jsonFile, json_encode($db, JSON_PRETTY_PRINT));
         header('Location: inventory.php');
         exit;
-    } else {
-        // Update quantity
+    }
+
+    if (isset($_POST['edit_item'])) {
+        // Edit Item
+        $item_name = $_POST['item_name'];
+        $supplier_info = $_POST['supplier_info'];
+        $reorder_level = intval($_POST['reorder_level']);
+        $quantity = floatval($_POST['quantity']);
+
+        foreach ($db['inventory'] as &$item) {
+            if ($item['item_name'] === $item_name) {
+                $item['supplier_info'] = $supplier_info;
+                $item['reorder_level'] = $reorder_level;
+                $item['quantity'] = $quantity;
+                break;
+            }
+        }
+        unset($item);
+        file_put_contents($jsonFile, json_encode($db, JSON_PRETTY_PRINT));
+        header('Location: inventory.php');
+        exit;
+    }
+
+    if (isset($_POST['item'])) {
+        // Update Quantity
         $item_name = $_POST['item'];
         $quantity = floatval($_POST['quantity']);
 
-        if (isset($db['inventory']) && is_array($db['inventory'])) {
-            foreach ($db['inventory'] as &$item) {
-                if ($item['item_name'] === $item_name) {
-                    $item['quantity'] = $quantity;
+        foreach ($db['inventory'] as &$item) {
+            if ($item['item_name'] === $item_name) {
+                $item['quantity'] = $quantity;
 
-                    if ($quantity <= $item['reorder_level']) {
-                        $subject = "Low Inventory Alert: " . $item['item_name'];
-                        $message = "The inventory item '" . $item['item_name'] . "' is low on stock. Only " . $quantity . " units remaining.";
-                        $headers = "From: inventory-system@example.com";
+                if ($quantity <= $item['reorder_level']) {
+                    $mail = new PHPMailer(true);
+                    try {
+                        $mail->isSMTP();
+                        $mail->Host = 'smtp.gmail.com';
+                        $mail->SMTPAuth = true;
+                        $mail->Username = 'anastasiosdrog@gmail.com';
+                        $mail->Password = 'zgau morr ihfz qdmt';
+                        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+                        $mail->Port = 587;
 
-                        mail($managementEmail, $subject, $message, $headers);
+                        $mail->setFrom('anastasiosdrog@gmail.com', "Dragon's Pizzeria");
+                        $mail->addAddress($managementEmail);
+
+                        $mail->isHTML(true);
+                        $mail->Subject = 'Low Inventory Alert - ' . $item['item_name'];
+                        $mail->Body = "
+                            <h2 style='color: red;'>⚠️ Low Stock Alert</h2>
+                            <p><strong>Item:</strong> " . htmlspecialchars($item['item_name']) . "</p>
+                            <p><strong>Quantity Remaining:</strong> <span style='color:red;'>" . htmlspecialchars($quantity) . "</span></p>
+                            <p><strong>Supplier:</strong> " . htmlspecialchars($item['supplier_info']) . "</p>
+                            <p><strong>Reorder Level:</strong> " . htmlspecialchars($item['reorder_level']) . "</p>
+                        ";
+                        $mail->send();
+                    } catch (Exception $e) {
+                        error_log("Mailer Error: {$mail->ErrorInfo}");
                     }
-                    break;
                 }
+                break;
             }
-            unset($item);
-            file_put_contents($jsonFile, json_encode($db, JSON_PRETTY_PRINT));
         }
+        unset($item);
+        file_put_contents($jsonFile, json_encode($db, JSON_PRETTY_PRINT));
         header('Location: inventory.php');
         exit;
     }
 }
 
-// --- LOAD INVENTORY ---
+// Reload latest DB after updates
 $db = json_decode(file_get_contents($jsonFile), true);
 $inventory = $db['inventory'] ?? [];
 ?>
+
+<!-- HTML starts below, same as you already had -->
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -114,81 +160,97 @@ $inventory = $db['inventory'] ?? [];
     <meta charset="UTF-8">
     <title>Inventory Management</title>
     <link rel="stylesheet" href="../cssFiles/inventory.css">
-    <link rel="stylesheet" href="../cssfiles/dash.css"> <!-- Use your dashboard layout CSS -->
+    <link rel="stylesheet" href="../cssFiles/dash.css">
 </head>
 <body>
+
+<!-- Sidebar -->
 <div class="sidebar" id="sidebar">
-  <a href="../phpfiles/dash.php"><span>Dashboard</span></a>
-  <a href="../phpFiles/AccountManagement.php"><span>Account Management</span></a>
-  <a href=""><span>Analytics</span></a>
-  <a href="../phpFiles/Schedule.php"><span>Schedule</span></a>
-  <a href="../phpFiles/inventory.php"><span>Inventory</span></a>
-  <a href="../phpFiles/orders.php"><span>Orders</span></a>
-  <?php if ($userRole === 'manager'): ?>
-  <a href="../phpFiles/StaffManagement.php"><span>Staff Management</span></a>
-  <a href="../phpFiles/scheduleManager.php"><span>Schedule Management</span></a>
-  <a href="../phpFiles/manage_reservations.php"><span>Reservations</span></a>
-  <?php endif;?>
-  <a href="../phpFiles/PreviousOrders.php"><span>Previous Orders</span></a>
+    <a href="../htmlfiles/dash.html"><span>Dashboard</span></a>
+    <a href="../phpFiles/AccountManagement.php"><span>Account Management</span></a>
+    <a href="../phpFiles/inventory.php"><span>Inventory</span></a>
+    <a href="../phpFiles/manage_reservations.php"><span>Reservations</span></a>
+    <a href="../phpFiles/orders.php"><span>Orders</span></a>
+    <a href="../phpFiles/PreviousOrders.php"><span>Previous Orders</span></a>
 </div>
 
+<!-- Main Content -->
 <div class="main" id="mainContent">
-  <div class="top-bar">
-    <button class="toggle-btn" id="toggleSidebar">&#9776;</button>
-    <div class="profile" id="profileBtn">
-      <span class="profile-name"><?php echo $displayName; ?></span>
-      <div class="dropdown" id="profileDropdown">
-      <a href="../htmlFiles/login.html">Log Out</a>
-      </div>
-    </div>
-  </div>
-  
-<header>
-<div class="header-container">
-        <button class="add-item-button" onclick="openAddForm()">Add Item</button>
-    </div>
-</header>
-<main>
-    <h1>Current Inventory</h1>
 
-    <form method="POST" class="generate-report-form">
-        <input type="hidden" name="generate_report" value="1">
-        <button type="submit" class="generate-report-button">Generate Daily Report</button>
-    </form>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <button class="toggle-btn" id="toggleSidebar">&#9776;</button>
+        <div class="profile" id="profileBtn">
+            <span class="profile-name">User Name</span>
+            <div class="dropdown" id="profileDropdown">
+                <a href="../phpFiles/AccountManagement.php">Account Management</a>
+                <a href="../htmlfiles/login.html">Log Out</a>
+            </div>
+        </div>
+    </div>
 
-    <!-- Hidden Add Item Form -->
-    <div id="addItemForm" class="add-item-form" style="display:none;">
-        <form method="POST">
-            <input type="hidden" name="add_item" value="1">
-            <input type="text" name="item_name" placeholder="Item Name" required>
-            <input type="text" name="supplier_info" placeholder="Supplier Info" required>
-            <input type="number" name="reorder_level" placeholder="Reorder Level" required>
-            <input type="number" name="quantity" placeholder="Quantity" step="0.01" required>
-            <button type="submit" class="add-button">Add Item</button>
-            <button type="button" class="cancel-button" onclick="closeAddForm()">Cancel</button>
+    <!-- Content Area -->
+    <div class="container">
+        <header>
+            <button class="add-item-button" onclick="openAddForm()">Add Item</button>
+        </header>
+
+        <form method="POST" class="generate-report-form">
+            <input type="hidden" name="generate_report" value="1">
+            <button type="submit" class="generate-report-button">Generate Daily Report</button>
         </form>
+
+        <!-- Hidden Forms -->
+        <div id="addItemForm" class="add-item-form" style="display:none;">
+            <form method="POST">
+                <input type="hidden" name="add_item" value="1">
+                <input type="text" name="item_name" placeholder="Item Name" required>
+                <input type="text" name="supplier_info" placeholder="Supplier Info" required>
+                <input type="number" name="reorder_level" placeholder="Reorder Level" required>
+                <input type="number" name="quantity" placeholder="Quantity" step="0.01" required>
+                <button type="submit" class="add-button">Add Item</button>
+                <button type="button" class="cancel-button" onclick="closeAddForm()">Cancel</button>
+            </form>
+        </div>
+
+        <div id="editItemForm" class="add-item-form" style="display:none;">
+            <form method="POST">
+                <input type="hidden" name="edit_item" value="1">
+                <input type="text" id="edit_item_name" name="item_name" placeholder="Item Name" readonly required>
+                <input type="text" id="edit_supplier_info" name="supplier_info" placeholder="Supplier Info" required>
+                <input type="number" id="edit_reorder_level" name="reorder_level" placeholder="Reorder Level" required>
+                <input type="number" id="edit_quantity" name="quantity" placeholder="Quantity" step="0.01" required>
+                <button type="submit" class="add-button">Save Changes</button>
+                <button type="button" class="cancel-button" onclick="closeEditForm()">Cancel</button>
+            </form>
+        </div>
+
+        <div class="inventory-container">
+            <?php if (empty($inventory)): ?>
+                <p class="no-inventory">No inventory items available.</p>
+            <?php else: ?>
+                <?php foreach ($inventory as $item): ?>
+                    <div class="inventory-item <?= ($item['quantity'] <= $item['reorder_level']) ? 'low-stock' : '' ?>">
+                        <h3><?= htmlspecialchars($item['item_name']) ?></h3>
+                        <p>Reorder Level: <?= htmlspecialchars($item['reorder_level']) ?></p>
+                        <form method="POST">
+                            <input type="hidden" name="item" value="<?= htmlspecialchars($item['item_name']) ?>">
+                            <input type="number" name="quantity" value="<?= $item['quantity'] ?>" step="0.01" required>
+                            <button type="submit" class="update-button">Update</button>
+                        </form>
+                        <p class="supplier-info">Supplier: <?= htmlspecialchars($item['supplier_info']) ?></p>
+                        <button class="edit-button" onclick="openEditForm('<?= htmlspecialchars($item['item_name']) ?>', '<?= htmlspecialchars($item['supplier_info']) ?>', <?= $item['reorder_level'] ?>, <?= $item['quantity'] ?>)">Edit</button>
+                    </div>
+                <?php endforeach; ?>
+            <?php endif; ?>
+        </div>
+
     </div>
 
-    <div class="inventory-container">
-        <?php if (empty($inventory)): ?>
-            <p class="no-inventory">No inventory items available.</p>
-        <?php else: ?>
-            <?php foreach ($inventory as $item): ?>
-                <div class="inventory-item">
-                    <h3><?= htmlspecialchars($item['item_name']) ?></h3>
-                    <p>Supplier: <?= htmlspecialchars($item['supplier_info']) ?></p>
-                    <p>Reorder Level: <?= htmlspecialchars($item['reorder_level']) ?></p>
-                    <form method="POST">
-                        <input type="hidden" name="item" value="<?= htmlspecialchars($item['item_name']) ?>">
-                        <input type="number" name="quantity" value="<?= $item['quantity'] ?>" step="0.01" required>
-                        <button type="submit" class="update-button">Update</button>
-                    </form>
-                </div>
-            <?php endforeach; ?>
-        <?php endif; ?>
-    </div>
-</main>
+</div>
 
+<!-- JS -->
+<script src="../htmlfiles/dash.js"></script>
 <script>
 function openAddForm() {
     document.getElementById('addItemForm').style.display = 'block';
@@ -196,26 +258,17 @@ function openAddForm() {
 function closeAddForm() {
     document.getElementById('addItemForm').style.display = 'none';
 }
-</script>
- <script src="../htmlfiles/dash.js"></script>
-</div> <!-- end of .main -->
-<script src="../htmlfiles/dash.js"></script>
-<!--logout script-->
-<script>
-function confirmLogout() {
-    if (confirm("Are you sure you want to log out?")) {
-        //  make a fetch request to logout.php
-        fetch('logout.php')
-            .then(response => {
-                if (response.ok) {
-                    // you can redirect after a successful fetch
-                    window.location.href = "../htmlfiles/login.html";
-                } else {
-                    alert('Logout failed!');
-                }
-            })
-    }
+function openEditForm(itemName, supplierInfo, reorderLevel, quantity) {
+    document.getElementById('editItemForm').style.display = 'block';
+    document.getElementById('edit_item_name').value = itemName;
+    document.getElementById('edit_supplier_info').value = supplierInfo;
+    document.getElementById('edit_reorder_level').value = reorderLevel;
+    document.getElementById('edit_quantity').value = quantity;
+}
+function closeEditForm() {
+    document.getElementById('editItemForm').style.display = 'none';
 }
 </script>
+
 </body>
 </html>
