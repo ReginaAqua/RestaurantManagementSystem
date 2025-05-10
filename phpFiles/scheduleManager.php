@@ -161,34 +161,21 @@ if ($nextMonth > 12) { $nextMonth = 1; $nextYear++; }
 </div>
 
 
-<div class="sidebar" id="sidebar">
-    <a href="../phpfiles/dash.php"><span>Dashboard</span></a>
-    <a href="../phpFiles/AccountManagement.php"><span>Account Management</span></a>
-    <a href="#"><span>Analytics</span></a>
-    <a href="../phpFiles/Schedule.php"><span>Schedule</span></a>
-    <a href="../phpFiles/inventory.php"><span>Inventory</span></a>
-    <a href="../phpFiles/manage_reservations.php"><span>Reservations</span></a>
-    <a href="../phpFiles/orders.php"><span>Orders</span></a>
-    <a href="../phpFiles/StaffManagement.php"><span>Staff Management</span></a>
-    <a href="../phpFiles/scheduleManager.php"><span>Schedule Management</span></a>
-    <a href="../phpFiles/PreviousOrders.php"><span>Previous Orders</span></a>
-</div>
 
 <div class="main">
-<div class="sidebar" id="sidebar">
-  <a href="../phpfiles/dash.php"><span>Dashboard</span></a>
-  <a href="../phpFiles/AccountManagement.php"><span>Account Management</span></a>
-  <a href="#"><span>Analytics</span></a>
-  <a href="../phpFiles/Schedule.php"><span>Schedule</span></a>
-  <a href="../phpFiles/inventory.php"><span>Inventory</span></a>
-  <a href="../phpFiles/manage_reservations.php"><span>Reservations</span></a>
-  <a href="../phpFiles/orders.php"><span>Orders</span></a>
-  <?php if ($userRole === 'manager'): ?>
-  <a href="../phpFiles/StaffManagement.php"><span>Staff Management</span></a>
-  <a href="../phpFiles/scheduleManager.php"><span>Schedule Management</span></a>
-  <?php endif;?>
-  <a href="../phpFiles/PreviousOrders.php"><span>Previous Orders</span></a>
-</div>
+    <!-- Sidebar Navigation -->
+  <div class="sidebar" id="sidebar">
+    <a href="../phpfiles/dash.php"><span>Dashboard</span></a>
+    <a href="../phpFiles/AccountManagement.php"><span>Account Management</span></a>
+    <a href="../phpFiles/Schedule.php"><span>Schedule</span></a>
+    <a href="../phpFiles/inventory.php"><span>Inventory</span></a>
+    <a href="../phpFiles/orders.php"><span>Orders</span></a>
+    <?php if ($userRole === 'manager'): ?>
+    <a href="../phpFiles/StaffManagement.php"><span>Staff Management</span></a>
+    <a href="../phpFiles/scheduleManager.php"><span>Schedule Management</span></a>
+    <a href="../phpFiles/manage_reservations.php"><span>Reservations</span></a>
+    <?php endif;?>
+  </div>
 <div class="top-bar">
   <button class="toggle-btn" id="toggleSidebar">&#9776;</button>
   <div class="profile" id="profileBtn">

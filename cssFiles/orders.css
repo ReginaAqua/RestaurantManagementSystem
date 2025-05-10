@@ -180,3 +180,15 @@ form textarea {
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
   display: none;
 }
+.sidebar {
+position: fixed;
+top: 0;
+left: 0;
+width: 200px;
+height: 100vh;
+background-color: #0288D1;
+color: white;
+overflow-y: auto;
+padding-top: 60px; /* Push content below top bar */
+z-index: 999;
+}

@@ -20,6 +20,19 @@ $previousOrders = array_filter(
     $allData["orders"],
     fn($o) => isset($o["status"]) && $o["status"] === "served"
 );
+//READING USERS.JSON
+$json = '../Data/users.json';
+$jsonData = file_get_contents($json);
+$users = json_decode($jsonData, true);
+//side bar settigns for sepperatign manager options from regular staff
+$userRole = '';
+
+foreach ($users as $user) {
+  if (isset($_SESSION['usernm'])&& $user['username']===$_SESSION['usernm']) {
+    $userRole = $user['role'] ?? '';
+    break;
+  }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -29,6 +42,20 @@ $previousOrders = array_filter(
   <link rel="stylesheet" href="../cssFiles/orders.css">
 </head>
 <body>
+      <!-- Sidebar Navigation -->
+  <div class="sidebar" id="sidebar">
+    <a href="../phpfiles/dash.php"><span>Dashboard</span></a>
+    <a href="../phpFiles/AccountManagement.php"><span>Account Management</span></a>
+    <a href="../phpFiles/Schedule.php"><span>Schedule</span></a>
+    <a href="../phpFiles/inventory.php"><span>Inventory</span></a>
+    <a href="../phpFiles/orders.php"><span>Orders</span></a>
+    <?php if ($userRole === 'manager'): ?>
+    <a href="../phpFiles/StaffManagement.php"><span>Staff Management</span></a>
+    <a href="../phpFiles/scheduleManager.php"><span>Schedule Management</span></a>
+    <a href="../phpFiles/manage_reservations.php"><span>Reservations</span></a>
+    <?php endif;?>
+    <a href="../phpFiles/PreviousOrders.php"><span>Previous Orders</span></a>
+  </div>
   <h1>Previous Orders</h1>
 
   <?php if (count($previousOrders) > 0): ?>

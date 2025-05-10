@@ -535,18 +535,7 @@ cursor: pointer;
     margin-top: 60px; /* Accounts for fixed top bar */
   }
 
-.sidebar {
-position: fixed;
-top: 0;
-left: 0;
-width: 200px;
-height: 100vh;
-background-color: #0288D1;
-color: white;
-overflow-y: auto;
-padding-top: 60px; /* Push content below top bar */
-z-index: 999;
-}
+
 .main-content {
     margin-left: 200px;
     padding: 90px 30px 30px 30px; /* push content below top-bar */
