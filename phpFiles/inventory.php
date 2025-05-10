@@ -10,6 +10,7 @@ use PHPMailer\PHPMailer\Exception;
 $jsonFile = '../Data/PP_DB.json';
 $managementEmail = 'oddandv@gmail.com';
 
+
 if (!file_exists($jsonFile)) {
     die('Database not found.');
 }

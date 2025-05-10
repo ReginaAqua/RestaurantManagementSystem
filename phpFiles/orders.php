@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-// Path to your JSON “database”
+
 $jsonFile = '../Data/PP_DB.json';
 
 //json for users
