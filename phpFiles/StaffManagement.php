@@ -8,7 +8,7 @@ $roles = ['manager', 'customer', 'waitstaff', 'kitchenstaff'];
 if (file_exists($json)) {
   $jsonData = file_get_contents($json);
   $users = json_decode($jsonData, true);
-
+  //saves users detail changes 
   if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save'])) {
     $targetUsername = $_POST['target_username']; 
     $updatedEmail = $_POST['email'];
@@ -56,9 +56,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete'])) {
         return $user['username'] !== $deleteUsername;
     });
 
-    // Reindex and save
+    //  save in database 
     $users = array_values($users);
-    file_put_contents($json, json_encode($users, JSON_PRETTY_PRINT));       
+     // Save back to JSON
+    $json_en = json_encode($users, JSON_PRETTY_PRINT);
+    file_put_contents($json, $json_en);        
     header("Location: StaffManagement.php");
     exit();
 }
@@ -182,10 +184,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete'])) {
     </div>
   </div>
 
-  <!-- Dashboard JS (sidebar toggle, dropdown, etc.) -->
+  <!-- dashboard JS -->
   <script src="../htmlfiles/dash.js"></script>
 
-  <!-- Your existing inline JS for Add/Delete -->
+  <!--  add && delete -->
   <script>
     document.getElementById('addRowBtn').addEventListener('click', function () {
       const form = document.createElement('form');
