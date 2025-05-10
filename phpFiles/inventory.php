@@ -145,11 +145,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header('Location: inventory.php');
         exit;
     }
+
 }
 
 // Reload latest DB after updates
 $db = json_decode(file_get_contents($jsonFile), true);
 $inventory = $db['inventory'] ?? [];
+
+//READING USERS.JSON
+$json = '../Data/users.json';
+$jsonData = file_get_contents($json);
+$users = json_decode($jsonData, true);
+//side bar settigns for sepperatign manager options from regular staff
+$userRole = '';
+
+foreach ($users as $user) {
+  if (isset($_SESSION['usernm'])&& $user['username']===$_SESSION['usernm']) {
+    $userRole = $user['role'] ?? '';
+    break;
+  }
+}
 ?>
 
 <!-- HTML starts below, same as you already had -->
@@ -165,15 +180,19 @@ $inventory = $db['inventory'] ?? [];
 </head>
 <body>
 
-<!-- Sidebar -->
-<div class="sidebar" id="sidebar">
-    <a href="../phpFiles/dash.php"><span>Dashboard</span></a>
+          <!-- Sidebar Navigation -->
+  <div class="sidebar" id="sidebar">
+    <a href="../phpfiles/dash.php"><span>Dashboard</span></a>
     <a href="../phpFiles/AccountManagement.php"><span>Account Management</span></a>
+    <a href="../phpFiles/Schedule.php"><span>Schedule</span></a>
     <a href="../phpFiles/inventory.php"><span>Inventory</span></a>
-    <a href="../phpFiles/manage_reservations.php"><span>Reservations</span></a>
     <a href="../phpFiles/orders.php"><span>Orders</span></a>
-    <a href="../phpFiles/PreviousOrders.php"><span>Previous Orders</span></a>
-</div>
+    <?php if ($userRole === 'manager'): ?>
+    <a href="../phpFiles/StaffManagement.php"><span>Staff Management</span></a>
+    <a href="../phpFiles/scheduleManager.php"><span>Schedule Management</span></a>
+    <a href="../phpFiles/manage_reservations.php"><span>Reservations</span></a>
+    <?php endif;?>
+  </div>
 
 <!-- Main Content -->
 <div class="main" id="mainContent">
