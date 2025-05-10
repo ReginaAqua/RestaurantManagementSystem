@@ -12,30 +12,6 @@
         "OTP": "879134"
     },
     {
-        "username": "cloud9",
-        "user_id": "PE0000002",
-        "name": "cloud",
-        "surname": "jacob",
-        "birthdate": "2002-11-22",
-        "email": "cloud@hotmail.com",
-        "phone": "66666666612412",
-        "password": "$2y$10$KX9pHHZCLhfwNwgdLYDHmuQNa\/CSP0W\/Xuxs3XZlro9.3CjAmWOg.",
-        "role": "Cheff",
-        "OTP": null
-    },
-    {
-        "username": "water",
-        "user_id": "PE1042059",
-        "name": "water",
-        "surname": "cloud",
-        "birthdate": "2222-02-02",
-        "email": "watercloud@hotmail.com",
-        "phone": "635523523523",
-        "password": "$2y$10$yd43dVDb7WqbbQJGrg8kvuzHRfw75VGdlXqnCFXW7oiv5xl5TWSWW",
-        "role": "janitor",
-        "OTP": null
-    },
-    {
         "username": "od",
         "name": "od",
         "surname": "dr",
@@ -43,7 +19,7 @@
         "email": "od@gmail.com",
         "phone": "6971231234",
         "password": "$2y$10$Ac1HbqB7OxYF8fj8JAmpM.53EgKxQXyFOLKlIF2PdTdz0KTHk0piO",
-        "role": "waitstaff",
+        "role": "manager",
         "OTP": null
     },
     {
