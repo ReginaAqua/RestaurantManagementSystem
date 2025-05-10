@@ -139,6 +139,17 @@ $prevMonth = $month - 1; $prevYear = $year;
 if ($prevMonth < 1) { $prevMonth = 12; $prevYear--; }
 $nextMonth = $month + 1; $nextYear = $year;
 if ($nextMonth > 12) { $nextMonth = 1; $nextYear++; }
+
+// top bar settings
+$loggedInUsername = $_SESSION['usernm'] ?? '';
+$displayName = '';
+
+foreach ($user_dec as $user) {
+  if ($user['username'] === $loggedInUsername) {
+    $displayName = htmlspecialchars($user['name'] . ' ' . $user['surname']);
+    break;
+  }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -174,12 +185,12 @@ if ($nextMonth > 12) { $nextMonth = 1; $nextYear++; }
     <a href="../phpFiles/StaffManagement.php"><span>Staff Management</span></a>
     <a href="../phpFiles/scheduleManager.php"><span>Schedule Management</span></a>
     <a href="../phpFiles/manage_reservations.php"><span>Reservations</span></a>
-    <?php endif;?>
+    <?php endif;?>      
   </div>
 <div class="top-bar">
   <button class="toggle-btn" id="toggleSidebar">&#9776;</button>
   <div class="profile" id="profileBtn">
-    <span class="profile-name"><?php echo isset($_SESSION['usernm']) ? htmlspecialchars($_SESSION['usernm']) : 'Guest'; ?></span>
+    <span class="profile-name"><?php echo $displayName; ?></span>
     <div class="dropdown" id="profileDropdown">
       <a href="../phpFiles/logout.php">Log Out</a>
     </div>

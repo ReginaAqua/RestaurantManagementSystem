@@ -145,6 +145,16 @@ foreach ($users as $user) {
     break;
   }
 }
+// top bar settings
+$loggedInUsername = $_SESSION['usernm'] ?? '';
+$displayName = '';
+
+foreach ($users as $user) {
+  if ($user['username'] === $loggedInUsername) {
+    $displayName = htmlspecialchars($user['name'] . ' ' . $user['surname']);
+    break;
+  }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -176,7 +186,7 @@ foreach ($users as $user) {
     <div class="top-bar">
       <button class="toggle-btn" id="toggleSidebar">&#9776;</button>
       <div class="profile" id="profileBtn">
-        <span class="profile-name">User Name</span>
+        <span class="profile-name"><?php echo $displayName; ?></span>
         <div class="dropdown" id="profileDropdown">
           <a href="../phpFiles/AccountManagement.php">Account Management</a>
           <a href="../htmlfiles/login.html">Log Out</a>

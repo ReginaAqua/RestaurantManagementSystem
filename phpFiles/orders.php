@@ -94,6 +94,16 @@ $data = file_exists($jsonFile)
 $displayOrders = array_filter($data["orders"], fn($o)=>
     in_array($o["status"], ["pending","ready"], true)
 );
+// top bar settings
+$loggedInUsername = $_SESSION['usernm'] ?? '';
+$displayName = '';
+
+foreach ($user_dec as $user) {
+  if ($user['username'] === $loggedInUsername) {
+    $displayName = htmlspecialchars($user['name'] . ' ' . $user['surname']);
+    break;
+  }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -123,9 +133,8 @@ $displayOrders = array_filter($data["orders"], fn($o)=>
     <div class="top-bar">
       <button class="toggle-btn" id="toggleSidebar">&#9776;</button>
       <div class="profile" id="profileBtn">
-        <span class="profile-name"><?= htmlspecialchars($_SESSION['usernm'] ?? 'User') ?></span>
+         <span class="profile-name"><?php echo $displayName; ?></span>
         <div class="dropdown" id="profileDropdown">
-          <a href="../phpFiles/AccountManagement.php">Account Management</a>
           <a href="../htmlfiles/login.html">Log Out</a>
         </div>
       </div>
